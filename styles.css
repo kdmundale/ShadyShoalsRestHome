@@ -1,0 +1,153 @@
+*, *::before, *::after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  position: fixed;
+  top: 0px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  background: linear-gradient(#acd4c3,#6d86c4,#acd4c3);
+  height: 180px;
+  border-bottom: 2px solid #493a7e;
+}
+
+footer {
+  bottom: 0px;
+  width: 100%;
+  background: linear-gradient(#acd4c3,#6d86c4,#acd4c3);
+  color:white;
+  text-align: center;
+  height: 140px;
+  font-size: 12px;
+  font-variant: small-caps;
+  border-top: 2px solid #493a7e;
+}
+
+.footP {
+  margin: 50px 0 0 0;
+}
+
+.shadyLogo {
+  font-variant: small-caps;
+  font-family: 'Gloria Hallelujah';
+  text-shadow: #493a7e 1px 0 10px;
+  color: white;
+  /* font-size: calc(25px + 80 * ((100vw - 300px)/1300)); */
+  font-size: 5vw;
+  text-align: left;
+  margin: 10px 10px 0px 20px;
+}
+
+#shadyShoals {
+  height:100%;
+}
+
+
+body {
+  font-family: 'Harmattan';
+  width: 100vw;
+  background-color:#f5ddc5;
+}
+
+h1 {
+  font-family: 'Handlee';
+  margin: 250px 0 20px 0;
+  color: #493a7e;
+  text-align: center;
+}
+
+p {
+  text-align: center;
+}
+
+.register, .login {
+  margin: 10px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  background-color: rgb(187,154,195);
+  border: 1px solid white;
+  box-shadow: 0px 0px 5px 5px #5a67b4;
+}
+
+.loginInput, .regInput, .regSelect {
+  height:20px;
+  text-align: center;
+  margin: 15px;
+  width: 250px;
+  box-shadow: 0px 0px 15px 5px #5a67b4;
+  border: 2px solid #5a67b4;
+}
+
+.regSelect:hover {
+  box-shadow: 0px 0px 10px 5px #eb5f30;
+}
+
+.loginInput:hover {
+  box-shadow: 0px 0px 10px 5px #eb5f30;
+}
+
+.regInput:hover {
+  box-shadow: 0px 0px 10px 5px #eb5f30;
+}
+
+.regSelect {
+  margin: 10px auto;
+}
+
+.regLabel {
+  font-size: 18px;
+  text-align: center;
+  font-variant: small-caps;
+  font-weight: bold;
+  margin: 0px;
+}
+#patInfo{
+  display: none;
+  flex-direction: column;
+  align-items: center;
+}
+
+a {
+  font-variant: small-caps;
+  font-weight: 600;
+  text-shadow: #acd4c3 1px 0 10px;
+  text-decoration: none;
+  color: #493a7e;
+}
+
+a:hover {
+  text-decoration: underline;
+  text-shadow: #eb5f30 1px 0 10px;
+}
+
+button {
+  font-size: 20px;
+  font-variant: small-caps;
+  font-weight: bold;
+  font-family: 'Handlee';
+  margin: 20px 0 20px; 0;
+  padding: 15px;
+  text-shadow: #acd4c3 1px 0 10px;
+  background: linear-gradient(#acd4c3,#6d86c4,#acd4c3);
+  color: #493a7e;
+  font-weight: bold;
+  border-radius: 25% 10%;
+  border: 1px solid #493a7e;
+}
+
+button:hover {
+  background: linear-gradient(#6d86c4,#acd4c3,#6d86c4);
+  box-shadow: 0px 0px 10px 5px #eb5f30;
+  border: 1px solid #acd4c3;
+}
+
+.homeP {
+  margin:30px;
+}
