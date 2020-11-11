@@ -4,6 +4,16 @@
   padding: 0;
 }
 
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  font-family: 'Harmattan';
+  width: 100vw;
+  background-color:#f5ddc5;
+}
+
 header {
   position: fixed;
   top: 0px;
@@ -11,21 +21,21 @@ header {
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  background: linear-gradient(#acd4c3,#6d86c4,#acd4c3);
+  background: linear-gradient(#acd4c3,#5f70bd,#acd4c3);
   height: 180px;
-  border-bottom: 2px solid #493a7e;
+  /* border-bottom: 2px solid #493a7e; */
 }
 
 footer {
   bottom: 0px;
   width: 100%;
-  background: linear-gradient(#acd4c3,#6d86c4,#acd4c3);
+  background: linear-gradient(#acd4c3,#5f70bd,#acd4c3);
   color:white;
   text-align: center;
   height: 140px;
   font-size: 12px;
   font-variant: small-caps;
-  border-top: 2px solid #493a7e;
+  /* border-top: 2px solid #493a7e; */
 }
 
 .footP {
@@ -37,22 +47,27 @@ footer {
   font-family: 'Gloria Hallelujah';
   text-shadow: #493a7e 1px 0 10px;
   color: white;
-  /* font-size: calc(25px + 80 * ((100vw - 300px)/1300)); */
+  font-size: calc(25px + 80 * ((100vw - 300px)/1300));
   font-size: 5vw;
   text-align: left;
   margin: 10px 10px 0px 20px;
 }
 
 #shadyShoals {
-  height:100%;
+  height:90%;
+  box-shadow: 0 0 8px 8px #493a7e inset;
 }
 
-
-body {
-  font-family: 'Harmattan';
-  width: 100vw;
-  background-color:#f5ddc5;
+#ShadyShoalsBlur {
+  padding: 0px 5px 0px 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-size: 231px 182px;
+  height: 100%;
 }
+
 
 h1 {
   font-family: 'Handlee';
@@ -150,4 +165,37 @@ button:hover {
 
 .homeP {
   margin:30px;
+}
+
+.homeMain{
+  display: flex;
+  flex-direction: row;
+  margin: 10px 0 40px 0;
+  border: 1px solid #493a7e;
+  padding: 10px;
+}
+
+nav {
+  font-size: 20;
+  width: 18vw;
+  background-color: #acd4c3;
+  border: 1px solid #493a7e;
+  display: flex;
+  padding: 10px;
+  flex-direction: column;
+}
+
+.navLink {
+  color: #493a7e;
+}
+
+ul {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  list-style-type: none;
+}
+
+.homeContent {
+  width: 70vw;
 }
