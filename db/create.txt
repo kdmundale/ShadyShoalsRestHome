@@ -26,8 +26,8 @@ INSERT INTO `users` (`id`, `role`, `first_name`, `last_name`, `email`, `phone`, 
 (6, 1, 'Admin', 'Admin', 'admin@email', '9998887777', '$2y$10$UMvX5/1QhcMHwd/ohiVebOE.bpm1lYIXHY0UbaCsxh5yOl7WtN/Si', '1982-02-20', NULL),
 (7, 6, 'Family', 'Member', 'faminly@email', '2223334444', '$2y$10$ljIDtRwhhzYqNDG5sV0JEep8qrvkJA4XNIVWU7CPdVAYWcUbsAXde', '2000-11-11', NULL),
 (8, 5, 'patient', 'patient', 'patient@email', '8887776666', '$2y$10$cl.9a7O8OYDyUQeKAlOtX.P./GNK/sIS5anJXY8/Su3gqhTWrknvq', '1985-05-05', NULL),
-(9, 4, 'Doctor', 'Doctor', 'doctor@email', '3333334444', '$2y$10$Ic.p8bcP2g9Cod9iZ/xGxeWbtE4cyH63YDbG4jGrUHZVZt6dWGeB.', '1979-06-11', NULL),
-(10, 3, 'Caregiver', 'Caregiver', 'caregiver@email', '2227776666', '$2y$10$ZjtwKy70hs//buJot5yEGu.k4OfsGLta3Wtu8sqtxzYR/DppyfaU6', '1985-09-04', NULL),
+(9, 3, 'Doctor', 'Doctor', 'doctor@email', '3333334444', '$2y$10$Ic.p8bcP2g9Cod9iZ/xGxeWbtE4cyH63YDbG4jGrUHZVZt6dWGeB.', '1979-06-11', NULL),
+(10, 4, 'Caregiver', 'Caregiver', 'caregiver@email', '2227776666', '$2y$10$ZjtwKy70hs//buJot5yEGu.k4OfsGLta3Wtu8sqtxzYR/DppyfaU6', '1985-09-04', NULL),
 (11, 2, 'Supervisor', 'Supervisor', 'supervisor@email', '4445556666', '$2y$10$/ofKy9SbFsv7bUWwuEkvIe2XrLalkEDD6/77C4xUynBiG/pGGzGSK', '1980-10-10', NULL),
 (12, 5, 'Sick', 'Dudue', 'sick@email', '2222222222', '$2y$10$mFmA9EAD5xr6sSyPLrmxiO4555Rt53BbWcavJnCtZluKwh2X.BFue', '1981-01-01', NULL);
 

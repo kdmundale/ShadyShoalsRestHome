@@ -3,6 +3,7 @@
   require "../includes/header.php";
  ?>
   <h1>Welcome, admin!</h1>
+  <a href="../db/logout.php">Logout</a>
   <section class="homeMain">
   <nav>
     <ul>
