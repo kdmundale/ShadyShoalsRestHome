@@ -67,7 +67,7 @@ if(isset($_POST['submit'])){
        echo "<a href='../register.php'>Go back</a>";
        exit();
      } else {
-       $sql = "INSERT INTO users (role, first_name, last_name, email, phone, dob, pass) VALUES (?,?,?,?,?,?,?)";
+       $sql = "INSERT INTO users (role, first_name, last_name, email, phone, dob, pass, approved) VALUES (?,?,?,?,?,?,?,?)";
        $stmt = mysqli_stmt_init($conn);
        if(!mysqli_stmt_prepare($stmt,$sql)){
          echo "There was a problem inserting the data.";
@@ -76,8 +76,8 @@ if(isset($_POST['submit'])){
          exit();
       } else {
         $hashedpass =password_hash($password,PASSWORD_DEFAULT);
-
-        mysqli_stmt_bind_param($stmt,"issssss",$regRole, $fName, $lName, $email, $phone, $DOB, $hashedpass);
+        $approved = 0;
+        mysqli_stmt_bind_param($stmt,"issssssi",$regRole, $fName, $lName, $email, $phone, $DOB, $hashedpass,$approved);
         mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);
 
@@ -123,7 +123,6 @@ if(isset($_POST['submit'])){
     }
    }
  }
-
 }
 }
 mysqli_close($conn);
