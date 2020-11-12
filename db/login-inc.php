@@ -37,6 +37,10 @@ if (isset($_POST['submit'])) {
       $_SESSION['userName']=$row['first_name']." ".$row['last_name'];
       $_SESSION['approved']= $row['approved'];
       $approved = $_SESSION['approved'];
+
+      setcookie("name",$_SESSION['userName'],time()+3600);
+      setcookie("role",$_SESSION['sessionRole'],time()+3600);
+
       if ($approved == 0) {
         echo "Thanks for stopping by, ".$_SESSION['userName'].", but your account has not yet been approved. Please check back later.";
         echo "<br/>";
