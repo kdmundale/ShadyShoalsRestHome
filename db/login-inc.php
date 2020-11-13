@@ -32,6 +32,7 @@ if (isset($_POST['submit'])) {
       exit();
     } elseif ($passCheck == True) {
       session_start();
+      session_regenerate_id();
       $_SESSION['sessionId']= $row['id'];
       $_SESSION['sessionRole']= $row['role'];
       $_SESSION['userName']=$row['first_name']." ".$row['last_name'];

@@ -1,9 +1,9 @@
 <?php
-if (isset($_POST['submit'])) {
-
   require 'db.php';
   require "../includes/head.php";
   require "../includes/header.php";
+  session_start();
+if ((isset($_POST['submit'])) && ($_SESSION['sessionRole']==1 || $_SESSION['sessionRole']==2)) {
 
   $approval = $_POST['approval'];
 
@@ -38,7 +38,7 @@ echo "<h1>Users ".$pageTitle."</h1>";
 echo '<table class="data-table">
         <tr class="data-heading">';  //initialize table tag
 while ($property = mysqli_fetch_field($result)) {
-    echo "<td style='font-size:18; font-weight:bold'>" . $property->name . '</td>';  //get field name for header
+    echo "<td style='font-size:18; font-weight:bold, padding:10px'>" . $property->name . '</td>';  //get field name for header
     array_push($all_property, $property->name);  //save those to array
 }
 echo "<td style='font-size:18; font-weight:bold'></td>";
@@ -46,12 +46,13 @@ echo "<td style='font-size:18; font-weight:bold'></td>";
 echo '</tr>'; //end tr tag
 //showing all data
 while ($row = mysqli_fetch_array($result)) {
-    echo '<tr><form action="changeUser.php" method="post">';
+    echo "<tr><form action='editUsers.php' method='post'>";
     foreach ($all_property as $item) {
-        echo "<td style='border:1px solid black; font-size:18; padding:5px'>" . $row[$item] . '</td>'; //get items using property value
+      $newId = $row['id'];
+      echo "<td style='border:1px solid black; font-size:18; padding:10px'>" . $row[$item] . '</td>'; //get items using property value
     }
-    echo "<td> <div><input type='checkbox' id='yes' name='yes' value='yes' checked><label for='yes'>Approved</label></div><div><input type='checkbox' id='no' name='no' value='no'><label for='no'>Not Approved</label></div></td>";
-    echo "<td><input id='userId' name='id' type='hidden' value=".$row['id']."></td>";
+    echo "<td style='border:1px solid black; font-size:18; padding:5px'><select id='approval' name='approve[]'><option value='approve'>Approve</option><option value='delete'>Delete</option></td>";
+    echo "<td><input id='userId' name='ids[]' type='hidden' value=".$newId."></td>";
     echo "</tr>";
 }
 echo "</table>";
