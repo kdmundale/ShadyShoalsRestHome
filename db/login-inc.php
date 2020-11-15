@@ -1,4 +1,7 @@
 <?php
+require "../includes/head.php";
+require "../includes/header.php";
+
 if (isset($_POST['submit'])) {
 
   require 'db.php';
@@ -36,15 +39,15 @@ if (isset($_POST['submit'])) {
       $_SESSION['sessionId']= $row['id'];
       $_SESSION['sessionRole']= $row['role'];
       $_SESSION['userName']=$row['first_name']." ".$row['last_name'];
-      $_SESSION['approved']= $row['approved'];
-      $approved = $_SESSION['approved'];
+      $_SESSION['status']= $row['status'];
+      $approved = $_SESSION['status'];
 
       setcookie("name",$_SESSION['userName'],time()+3600);
       setcookie("role",$_SESSION['sessionRole'],time()+3600);
 
       if ($approved == 0) {
-        echo "Thanks for stopping by, ".$_SESSION['userName'].", but your account has not yet been approved. Please check back later.";
-        echo "<br/>";
+        echo "<h1>Thanks for stopping by, ".$_SESSION['userName'].", but your account has not yet been approved.<br> Please check back later.<h1>";
+        echo "<br>";
         echo "<a href='../index.php'>Go back</a>";
         exit();
       } elseif ($approved == 1) {
@@ -92,5 +95,7 @@ if (isset($_POST['submit'])) {
   echo "<br/>";
   echo "<a href='../index.php'>Go back</a>";
   exit();
+
 }
+
  ?>

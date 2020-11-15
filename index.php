@@ -14,5 +14,5 @@
     </form>
     <p class="homeP">Welcome to Shady Shoals</p>
 <?php
-  require "includes/footer.php"
+  require "includes/footer.php";
  ?>

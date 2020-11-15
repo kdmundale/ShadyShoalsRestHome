@@ -16,14 +16,15 @@
   </nav>
   <div id="home_page_content" class="homeContent">
     <form id="userStatus" class="" action="../db/approve.php" method="post">
-      <label for="approval">View all users who are </label>
+      <label for="approval">Select User Status</label>
       <select id="approval" class="" name="approval">
-        <option value=0>Not Approved</option>
+        <option value=3>Pending Approval</option>
         <option value=1>Approved</option>
+        <option value=0>Deactivated</option>
       </select>
       <button class="homeButton" type="submit" name="submit">View Users</button>
     </form>
-    <form id="employeeList" class="" action="" method="post">
+    <form id="employeeList" class="homeForm" action="" method="post">
       <label for="empList">View employees </label>
       <select id="approval" class="" name="approval">
         <option value=1>Admin</option>
