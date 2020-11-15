@@ -73,16 +73,16 @@ echo <<< "NEW"
     </select>
     <button class="homeButton" type="submit" name="submit">View Users</button>
   </form>
-  <form id="employeeList" class="homeForm" action="" method="post">
+  <form id="employeeList" class="homeForm" action="../db/employees.php" method="post">
     <label for="empList">View employees </label>
-    <select id="approval" class="" name="approval">
+    <select id="empSelect" class="" name="empSelect">
       <option value=1>Admin</option>
       <option value=2>Supervisor</option>
       <option value=3>Doctor</option>
       <option value=4>Caregiver</option>
       <option value=8>All</option>
     </select>
-    <button class="homeButton" type="submit" name="submit">View Employees</button>
+    <button class="homeButton" type="submit" name="empSubmit">View Employees</button>
   </form>
 NEW;
 

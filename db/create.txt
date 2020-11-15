@@ -35,3 +35,9 @@ INSERT INTO `patients` (`pat_id`, `group_id`, `admission`, `family_code`, `emerg
 (1, NULL, NULL, '999999', 'Sally Smith', 'Sister'),
 (8, NULL, NULL, '123456', 'Patient Mom', 'Mom'),
 (12, NULL, NULL, '876543', 'mommy', 'mother');
+
+INSERT INTO `employees` (`emp_id`,`salary`,`group_id`) VALUES
+(6,150000, 1),
+(4,100000,2),
+(10,30000,3),
+(5,75000,1);

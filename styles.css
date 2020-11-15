@@ -252,3 +252,7 @@ td {
   font-weight:bold;
   padding:5px;
 }
+
+.empEdit {
+  display: inline-block;
+}
