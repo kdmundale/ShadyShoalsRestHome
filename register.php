@@ -1,6 +1,7 @@
 <?php
   require "includes/head.php";
   require "includes/header.php";
+  require "db/db.php"
  ?>
     <h1>Register</h1>
     <p>Already have a login? <a href="index.php">LOGIN</a></p>
@@ -8,14 +9,23 @@
 
     <form class="register" action="db/register-inc.php" method="post">
       <label class="regLabel" for="regSelect">Login Role</label>
-      <select id="roleSelect" class="regSelect" name="regRole">
-        <option value=6>Family Member</option>
-        <option id="patRole" value=5>Patient</option>
-        <option value=4>Doctor</option>
-        <option value=3>Caregiver</option>
-        <option value=2>Supervisor</option>
-        <option value=1>Administrator</option>
-      </select>
+      <?php
+      $sql = "SELECT DISTINCT position FROM users";
+      $stmt = mysqli_stmt_init($conn);
+      if (!mysqli_stmt_prepare($stmt,$sql)){
+        echo "There was an error with the server 1.";
+        echo "<br/>";
+        echo "<a href='../index.php'>Go back</a>";
+        exit();
+      } else {
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        echo "<select id='roleSelect' class='regSelect' name='regRole'>";
+        while ($row = mysqli_fetch_array($result)) {
+          echo "<option>" . $row['position'] . '</option>';
+        }
+      }
+       ?>
       <script defer src="js/regDropDn.js" type="text/javascript"></script>
       <label class="regLabel" for="fName">First Name</label>
       <input class="regInput" type="text" name="fName" placeholder="First Name">
@@ -51,5 +61,5 @@
     Check your email for notification!</p>
 
 <?php
-  require "includes/footer.php"
+  require "includes/footer.php";
  ?>
