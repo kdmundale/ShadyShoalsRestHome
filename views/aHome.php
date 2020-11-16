@@ -9,7 +9,7 @@
     <ul>
       <li><button class="homeButton" id="reg" type="button" name="registratin">Registration</button></li>
       <li><button class="homeButton" id="emp" type="button" name="employee">Employee Information</button></li>
-      <li><a class="navLink" href="">Roster</a></li>
+      <li><button class="homeButton" id="newRole" type="button" name="newRoleForm">Employee Information</button></li>
       <li><a class="navLink" href="">Patients</a></li>
       <script defer src="../js/homePage.js" type="text/javascript"></script>
     </ul>
@@ -28,11 +28,11 @@
     <form id="employeeList" class="homeForm" action="../db/employees.php" method="post">
       <label for="empList">View employees </label>
       <select id="empSelect" class="" name="empSelect">
-        <option value=1>Admin</option>
-        <option value=2>Supervisor</option>
-        <option value=3>Doctor</option>
-        <option value=4>Caregiver</option>
-        <option value=20>All</option>
+        <option value="Administrator">Admin</option>
+        <option value="Supervisor">Supervisor</option>
+        <option value="Doctor">Doctor</option>
+        <option value="Caregiver">Caregiver</option>
+        <option value="All">All</option>
       </select>
       <button class="homeButton" type="submit" name="empSubmit">View Employees</button>
     </form>

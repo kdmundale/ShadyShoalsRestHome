@@ -4,6 +4,9 @@ drop table if exists appointments;
 drop table if exists payments;
 drop table if exists daily;
 drop table if exists users;
+drop table if exists role_security;
+
+create table role_security (position varchar(25) not null PRIMARY KEY, sec_level int(2) not null);
 
 create table users (id int(10) PRIMARY key AUTO_INCREMENT, role int(1) not null, position varchar(25) not null, first_name varchar(20) not null, last_name varchar(20) not null, email varchar(50) not null, phone varchar(20) not null, pass varchar (255) not null, dob date not null, status boolean);
 
@@ -16,6 +19,14 @@ create table appointments (appt_id int(20) primary key AUTO_INCREMENT not null, 
 create table payments (pat_id int(10) primary key not null, foreign key(pat_id) references users(id), total_owed decimal(9,2), total_paid decimal(9,2));
 
 create table daily (daily_id int(20) primary key not null AUTO_INCREMENT, caregiver_id int(10) not null, foreign key(caregiver_id) REFERENCES users(id), pat_id int(10) not null, FOREIGN key (pat_id) REFERENCES users(id), care_date date, morn_med boolean, aft_med boolean, night_med boolean, breakfast boolean, lunch boolean, dinner boolean);
+
+INSERT INTO `role_security`(`sec_level`,`position`) VALUES
+  (1, 'Administrator'),
+  (2, 'Supervisor'),
+  (3, 'Doctor'),
+  (4, 'Caregiver'),
+  (5, 'Patient'),
+  (6, 'Family Member');
 
 INSERT INTO `users` (`id`, `role`,`position`, `first_name`, `last_name`, `email`, `phone`, `pass`, `dob`, `status`) VALUES
 (1, 5,'Patient', 'Bob', 'Smith', 'bs@email', '123456', '$2y$10$OV8nhMiRiUe0trofnlTnf.GH16fPUMSj1hAUQ0M5Q5OIjW2IGctUW', '1981-01-01', 1),

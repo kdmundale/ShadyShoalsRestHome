@@ -2,7 +2,7 @@
 if(isset($_POST['submit'])){
  require 'db.php';
 
- $regRole = $_POST['regRole'];
+ $position = $_POST['regRole'];
  $fName = trim($_POST['fName']);
  $lName = trim($_POST['lName']);
  $email = trim($_POST['email']);
@@ -26,7 +26,7 @@ if(isset($_POST['submit'])){
    echo "<br/>";
    echo "<a href='../register.php'>Go back</a>";
    exit();
- } elseif ($regRole == 5 && (!preg_match("/^[0-9]*/", $famCode)) && strlen($famCode)!=6) {
+ } elseif ($position == 'Family Member' && (!preg_match("/^[0-9]*/", $famCode)) && strlen($famCode)!=6) {
    echo "Check to make sure the family code was a valid 6 digit number.";
    echo "<br/>";
    echo "<a href='../register.php'>Go back</a>";
@@ -67,7 +67,24 @@ if(isset($_POST['submit'])){
        echo "<a href='../register.php'>Go back</a>";
        exit();
      } else {
-       $sql = "INSERT INTO users (role, first_name, last_name, email, phone, dob, pass, approved) VALUES (?,?,?,?,?,?,?)";
+       $sql = "SELECT sec_level FROM role_security WHERE position = ?";
+       $stmt = mysqli_stmt_init($conn);
+       if(!mysqli_stmt_prepare($stmt,$sql)){
+         echo "There was a problem getting sec level data the data.";
+         echo "<br/>";
+         echo "<a href='../register.php'>Go back</a>";
+         exit();
+      } else {
+        mysqli_stmt_bind_param($stmt,"s",$position);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        while ($row = mysqli_fetch_array($result, MYSQLI_NUM)){
+            foreach ($row as $r){
+                $regRole = $r;
+            }
+        }
+       mysqli_stmt_close($stmt);
+       $sql = "INSERT INTO users (role, position, first_name, last_name, email, phone, dob, pass) VALUES (?,?,?,?,?,?,?,?)";
        $stmt = mysqli_stmt_init($conn);
        if(!mysqli_stmt_prepare($stmt,$sql)){
          echo "There was a problem inserting the data.";
@@ -76,7 +93,7 @@ if(isset($_POST['submit'])){
          exit();
       } else {
         $hashedpass =password_hash($password,PASSWORD_DEFAULT);
-        mysqli_stmt_bind_param($stmt,"issssss",$regRole, $fName, $lName, $email, $phone, $DOB, $hashedpass);
+        mysqli_stmt_bind_param($stmt,"isssssss",$regRole, $position, $fName, $lName, $email, $phone, $DOB, $hashedpass);
         mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);
 
@@ -122,6 +139,7 @@ if(isset($_POST['submit'])){
     }
    }
  }
+}
 }
 }
 mysqli_close($conn);

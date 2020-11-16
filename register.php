@@ -10,7 +10,7 @@
     <form class="register" action="db/register-inc.php" method="post">
       <label class="regLabel" for="regSelect">Login Role</label>
       <?php
-      $sql = "SELECT DISTINCT position FROM users";
+      $sql = "SELECT * FROM role_security";
       $stmt = mysqli_stmt_init($conn);
       if (!mysqli_stmt_prepare($stmt,$sql)){
         echo "There was an error with the server 1.";
@@ -21,8 +21,9 @@
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
         echo "<select id='roleSelect' class='regSelect' name='regRole'>";
+        echo "<option>Select Position</option>";
         while ($row = mysqli_fetch_array($result)) {
-          echo "<option>" . $row['position'] . '</option>';
+          echo "<option id=".$row['position']." value =".$row['position'].">" . $row['position'] . "</option>";
         }
       }
        ?>

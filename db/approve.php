@@ -37,7 +37,7 @@ if (!mysqli_stmt_prepare($stmt,$sql)){
   $result = mysqli_stmt_get_result($stmt);
 }
 } else {
-$sql = "SELECT id, first_name, last_name, role, email, phone, dob, status FROM users WHERE status is NULL";
+$sql = "SELECT id, first_name, last_name, role, position, email, phone, dob, status FROM users WHERE status is NULL";
 $all_property = array();  //declare an array for saving property
 $stmt = mysqli_stmt_init($conn);
 if (!mysqli_stmt_prepare($stmt,$sql)){

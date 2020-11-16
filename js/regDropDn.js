@@ -1,6 +1,6 @@
 function isPatient(regRole){
     if(regRole){
-        patRoleValue = document.getElementById("patRole").value;
+        patRoleValue = document.getElementById("Patient").value;
         selectValue = document.getElementById("roleSelect").value;
         if(patRoleValue == selectValue){
             document.getElementById("patInfo").style.display = "flex";

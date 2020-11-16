@@ -7,23 +7,12 @@ if ((isset($_POST['empSubmit'])) && ($_SESSION['sessionRole']==1 || $_SESSION['s
 
   $empSelect = $_POST['empSelect'];
 
-
-  if ($empSelect == 1){
-    $pageTitle = "Administrators";
-  }elseif ($empSelect == 2) {
-    $pageTitle = "Supervisors";
-  }elseif ($empSelect == 3) {
-    $pageTitle = "Doctors";
-  }elseif ($empSelect == 4) {
-    $pageTitle = "Caregivers";
-  }
-
-  if ($empSelect<20){
+  if ($empSelect!="All"){
     $sql = "SELECT u.id, u.first_name, u.last_name,u.email, u.phone, u.dob, e.salary, e.group_id
     FROM users u, employees e
     WHERE u.id = e.emp_id
     AND status = 1
-    AND role = ?";
+    AND position = ?";
     $all_property = array();  //declare an array for saving property
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql)){
@@ -121,7 +110,7 @@ if ((isset($_POST['empSubmit'])) && ($_SESSION['sessionRole']==1 || $_SESSION['s
     <input type="number" name="empID" placeholder="Emp ID"></imput>
     <label for="empSal">Employee Group</label>
     <input type="number" name="empGroup" placeholder="New Group"></imput>
-    <button class="homeButton" type="submit" name="salSubmit">Change Group</button>
+    <button class="homeButton" type="submit" name="grpSubmit">Change Group</button>
     </form>
     EMP2;
   }
