@@ -37,7 +37,7 @@ if (!mysqli_stmt_prepare($stmt,$sql)){
   $result = mysqli_stmt_get_result($stmt);
 }
 } else {
-$sql = "SELECT id, first_name, last_name, role, position, email, phone, dob, status FROM users WHERE status is NULL";
+$sql = "SELECT id, first_name, last_name, role, email, phone, dob, status FROM users WHERE status is NULL";
 $all_property = array();  //declare an array for saving property
 $stmt = mysqli_stmt_init($conn);
 if (!mysqli_stmt_prepare($stmt,$sql)){
@@ -75,7 +75,7 @@ echo <<< "NEW"
   </form>
   <form id="employeeList" class="homeForm" action="../db/employees.php" method="post">
     <label for="empList">View employees </label>
-    <select id="empSelect" class="" name="empSelect">
+    <select id="approval" class="" name="approval">
       <option value=1>Admin</option>
       <option value=2>Supervisor</option>
       <option value=3>Doctor</option>

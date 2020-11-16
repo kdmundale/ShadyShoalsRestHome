@@ -7,12 +7,12 @@ if ((isset($_POST['empSubmit'])) && ($_SESSION['sessionRole']==1 || $_SESSION['s
 
   $empSelect = $_POST['empSelect'];
 
-  if ($empSelect!="All"){
+  if ($empSelect<20){
     $sql = "SELECT u.id, u.first_name, u.last_name,u.email, u.phone, u.dob, e.salary, e.group_id
     FROM users u, employees e
     WHERE u.id = e.emp_id
     AND status = 1
-    AND position = ?";
+    AND role = ?";
     $all_property = array();  //declare an array for saving property
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql)){
