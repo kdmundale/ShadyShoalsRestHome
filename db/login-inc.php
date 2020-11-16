@@ -37,11 +37,27 @@ if (isset($_POST['submit'])) {
       session_start();
       session_regenerate_id();
       $_SESSION['sessionId']= $row['id'];
-      $_SESSION['sessionRole']= $row['role'];
       $_SESSION['userName']=$row['first_name']." ".$row['last_name'];
       $_SESSION['status']= $row['status'];
       $approved = $_SESSION['status'];
-
+      $position_id= $row['position_id'];
+      $sql = "SELECT sec_level FROM role_security WHERE position_id = ?;";
+      $stmt = mysqli_stmt_init($conn);
+      if (!mysqli_stmt_prepare($stmt,$sql)){
+        echo "There was an error with the server 1.";
+        echo "<br/>";
+        echo "<a href='../index.php'>Go back</a>";
+      exit();
+    } else {
+      mysqli_stmt_bind_param($stmt, "i", $position_id);
+      mysqli_stmt_execute($stmt);
+      $res = mysqli_stmt_get_result($stmt);
+      if ($row = mysqli_fetch_assoc($res)) {
+        $_SESSION['sessionRole'] = $row['sec_level'];
+      } else {
+        echo "There was an issue setting session security level.";
+      }
+      }
       setcookie("name",$_SESSION['userName'],time()+3600);
       setcookie("role",$_SESSION['sessionRole'],time()+3600);
 

@@ -67,7 +67,7 @@ if(isset($_POST['submit'])){
        echo "<a href='../register.php'>Go back</a>";
        exit();
      } else {
-       $sql = "SELECT sec_level FROM role_security WHERE position = ?";
+       $sql = "SELECT position_id FROM role_security WHERE position = ?";
        $stmt = mysqli_stmt_init($conn);
        if(!mysqli_stmt_prepare($stmt,$sql)){
          echo "There was a problem getting sec level data the data.";
@@ -84,7 +84,7 @@ if(isset($_POST['submit'])){
             }
         }
        mysqli_stmt_close($stmt);
-       $sql = "INSERT INTO users (role, position, first_name, last_name, email, phone, dob, pass) VALUES (?,?,?,?,?,?,?,?)";
+       $sql = "INSERT INTO users (position_id, first_name, last_name, email, phone, dob, pass) VALUES (?,?,?,?,?,?,?,?)";
        $stmt = mysqli_stmt_init($conn);
        if(!mysqli_stmt_prepare($stmt,$sql)){
          echo "There was a problem inserting the data.";
@@ -93,7 +93,7 @@ if(isset($_POST['submit'])){
          exit();
       } else {
         $hashedpass =password_hash($password,PASSWORD_DEFAULT);
-        mysqli_stmt_bind_param($stmt,"isssssss",$regRole, $position, $fName, $lName, $email, $phone, $DOB, $hashedpass);
+        mysqli_stmt_bind_param($stmt,"isssssss",$position, $fName, $lName, $email, $phone, $DOB, $hashedpass);
         mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);
 
@@ -112,7 +112,6 @@ if(isset($_POST['submit'])){
             mysqli_stmt_close($stmt);
             if ($row = mysqli_fetch_assoc($res)) {
               $pat_id = $row['id'];
-              echo "BANG!!!!!!!!!!",$pat_id;
               $sql = "INSERT INTO patients (pat_id, family_code, emergency_contact, emergency_contact_relation) VALUES (?,?,?,?)";
               $stmt = mysqli_stmt_init($conn);
               if(!mysqli_stmt_prepare($stmt,$sql)){
