@@ -36,6 +36,8 @@ if ((isset($_POST['submit'])) && ($_SESSION['sessionRole']==1 || $_SESSION['sess
     }
   }
 }
+header("Location: ../views/aHome.php?success=users_updated");
+
 }
 
  ?>
