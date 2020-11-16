@@ -40,7 +40,7 @@ HOME;
         } else {
           mysqli_stmt_execute($stmt);
           $result = mysqli_stmt_get_result($stmt);
-          echo "<select id='roleSelect' class='regSelect' name='regRole'>";
+          echo "<select id='roleSelect' class='regSelect' name='position'>";
           echo "<option>Select Position</option>";
           echo "<option id='allPos' value='allPos'>All Positions</option>";
           while ($row = mysqli_fetch_array($result)) {
