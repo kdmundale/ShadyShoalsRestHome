@@ -1,53 +1,58 @@
 drop table if exists employees;
 drop table if exists patients;
 drop table if exists appointments;
-drop table if exists payments;
+drop table if exists payment_update;
+drop table if exists roster;
 drop table if exists daily;
 drop table if exists users;
 drop table if exists role_security;
 
-create table role_security (position varchar(25) not null PRIMARY KEY, sec_level int(2) not null);
 
-create table users (id int(10) PRIMARY key AUTO_INCREMENT, role int(1) not null, position varchar(25) not null, first_name varchar(20) not null, last_name varchar(20) not null, email varchar(50) not null, phone varchar(20) not null, pass varchar (255) not null, dob date not null, status boolean);
+create table role_security (position_id int(2) PRIMARY KEY not null AUTO_INCREMENT, position varchar(25) not null, sec_level int(2) not null);
 
-create table employees (emp_id int(10) primary key not null, foreign key(emp_id) references users(id), salary int, group_id int not null check(group_id >=1 and group_id <= 4));
+create table users (id int(10) PRIMARY key AUTO_INCREMENT, position_id int(2) not null, foreign key(position_id) REFERENCES role_security(position_id), first_name varchar(20) not null, last_name varchar(20) not null, email varchar(50) not null, phone varchar(20) not null, pass varchar (255) not null, dob date not null, status boolean);
 
-create table patients (pat_id int(10) primary key not null, foreign key(pat_id) references users(id), group_id int(1) check(group_id >=1 and group_id <= 4),admission date, family_code varchar(6), emergency_contact varchar(75), emergency_contact_relation varchar(20));
+create table employees (emp_id int(10) primary key not null AUTO_INCREMENT, user_id int(10) not null, foreign key(user_id) references users(id), salary int, group_id int not null check(group_id >=1 and group_id <= 4));
+
+create table patients (pat_id int(10) primary key not null AUTO_INCREMENT, user_id int(10) not null, foreign key(user_id) references users(id), group_id int(1) check(group_id >=1 and group_id <= 4),admission date, family_code varchar(6), emergency_contact varchar(75), emergency_contact_relation varchar(20),total_paid decimal(9,2),total_due decimal(9,2));
 
 create table appointments (appt_id int(20) primary key AUTO_INCREMENT not null, doctor_id int(10) not null, foreign key(doctor_id) references users(id), pat_id int(10) not null, foreign key (pat_id) references users(id), appt_date date not null, morn_med varchar(200), aft_med varchar(200), night_med varchar(200), comments varchar(255));
 
-create table payments (pat_id int(10) primary key not null, foreign key(pat_id) references users(id), total_owed decimal(9,2), total_paid decimal(9,2));
-
 create table daily (daily_id int(20) primary key not null AUTO_INCREMENT, caregiver_id int(10) not null, foreign key(caregiver_id) REFERENCES users(id), pat_id int(10) not null, FOREIGN key (pat_id) REFERENCES users(id), care_date date, morn_med boolean, aft_med boolean, night_med boolean, breakfast boolean, lunch boolean, dinner boolean);
 
-INSERT INTO `role_security`(`sec_level`,`position`) VALUES
-  (1, 'Administrator'),
-  (2, 'Supervisor'),
-  (3, 'Doctor'),
-  (4, 'Caregiver'),
-  (5, 'Patient'),
-  (6, 'Family Member');
+create table roster (daily_id int(20) primary key not null AUTO_INCREMENT, care_date date not null, group_id int(1) not null, doctor_id int(10),foreign key(doctor_id) references users(id), caregiver_id int(10),foreign key(caregiver_id) REFERENCES users(id));
 
-INSERT INTO `users` (`id`, `role`,`position`, `first_name`, `last_name`, `email`, `phone`, `pass`, `dob`, `status`) VALUES
-(1, 5,'Patient', 'Bob', 'Smith', 'bs@email', '123456', '$2y$10$OV8nhMiRiUe0trofnlTnf.GH16fPUMSj1hAUQ0M5Q5OIjW2IGctUW', '1981-01-01', 1),
-(2, 6,'Family Member', 'Sally', 'Smith', 'ssmith@email', '1231231234', '$2y$10$Racn9nVRWnpVAtdqOdfjee6QD5SEo3E96bsxyldzh1iFWzEpLQMJ2', '1982-01-02', NULL),
-(3, 4,'Caregiver', 'John', 'Doe', 'jdoe@email', '3453453456', '$2y$10$9ppTIKZhDwxFfjaz88359eLW.4YegZ9Rs45UTZU5uEZLs0m5/qTLy', '1973-01-03', 1),
-(4, 3,'Doctor', 'Kathy', 'Jones', 'kjones@email', '1112223333', '$2y$10$GaqNau.uzFmDBPPuFfiM/.zbdY5/FrEeNfSo2seaOxuLcOF/gh5Ni', '1979-04-14', 1),
-(5, 2, 'Supervisor','Chad', 'Jones', 'cjones@email', '5554446666', '$2y$10$yRXZg1L3Ky..U1vC5YCNROBJjUucE2ca/CrRBfkFVGFUSdMS5CWyS', '1980-12-12', 1),
-(6, 1, 'Administrator','Admin', 'Admin', 'admin@email', '9998887777', '$2y$10$UMvX5/1QhcMHwd/ohiVebOE.bpm1lYIXHY0UbaCsxh5yOl7WtN/Si', '1982-02-20', 1),
-(7, 6, 'Family Member', 'Family', 'Member', 'family@email', '2223334444', '$2y$10$ljIDtRwhhzYqNDG5sV0JEep8qrvkJA4XNIVWU7CPdVAYWcUbsAXde', '2000-11-11', 0),
-(8, 5,'Patient', 'patient', 'patient', 'patient@email', '8887776666', '$2y$10$cl.9a7O8OYDyUQeKAlOtX.P./GNK/sIS5anJXY8/Su3gqhTWrknvq', '1985-05-05', NULL),
-(9, 3, 'Doctor','Doctor', 'Doctor', 'doctor@email', '3333334444', '$2y$10$Ic.p8bcP2g9Cod9iZ/xGxeWbtE4cyH63YDbG4jGrUHZVZt6dWGeB.', '1979-06-11', 0),
-(10, 4, 'Caregiver','Caregiver', 'Caregiver', 'caregiver@email', '2227776666', '$2y$10$ZjtwKy70hs//buJot5yEGu.k4OfsGLta3Wtu8sqtxzYR/DppyfaU6', '1985-09-04', 1),
-(11, 2,'Supervisor','Supervisor', 'Supervisor', 'supervisor@email', '4445556666', '$2y$10$/ofKy9SbFsv7bUWwuEkvIe2XrLalkEDD6/77C4xUynBiG/pGGzGSK', '1980-10-10', NULL),
-(12, 5, 'Patient','Sick', 'Dude', 'sick@email', '2222222222', '$2y$10$mFmA9EAD5xr6sSyPLrmxiO4555Rt53BbWcavJnCtZluKwh2X.BFue', '1981-01-01', 1);
+create table payment_update (id int(20) PRIMARY KEY not null AUTO_INCREMENT, update_date date);
 
-INSERT INTO `patients` (`pat_id`, `group_id`, `admission`, `family_code`, `emergency_contact`, `emergency_contact_relation`) VALUES
+INSERT INTO `role_security`(`position_id`,`sec_level`,`position`) VALUES
+  (1,1, 'Administrator'),
+  (2,2, 'Supervisor'),
+  (3,3, 'Doctor'),
+  (4,4, 'Caregiver'),
+  (5,5, 'Patient'),
+  (6,6, 'Family Member'),
+  (7,4, 'CNA');
+
+INSERT INTO `users` (`id`,`position_id`, `first_name`, `last_name`, `email`, `phone`, `pass`, `dob`, `status`) VALUES
+(1, 5, 'Bob', 'Smith', 'bs@email', '123456', '$2y$10$OV8nhMiRiUe0trofnlTnf.GH16fPUMSj1hAUQ0M5Q5OIjW2IGctUW', '1981-01-01', 1),
+(2, 6, 'Sally', 'Smith', 'ssmith@email', '1231231234', '$2y$10$Racn9nVRWnpVAtdqOdfjee6QD5SEo3E96bsxyldzh1iFWzEpLQMJ2', '1982-01-02', NULL),
+(3, 4, 'John', 'Doe', 'jdoe@email', '3453453456', '$2y$10$9ppTIKZhDwxFfjaz88359eLW.4YegZ9Rs45UTZU5uEZLs0m5/qTLy', '1973-01-03', 1),
+(4, 3, 'Kathy', 'Jones', 'kjones@email', '1112223333', '$2y$10$GaqNau.uzFmDBPPuFfiM/.zbdY5/FrEeNfSo2seaOxuLcOF/gh5Ni', '1979-04-14', 1),
+(5, 2, 'Chad', 'Jones', 'cjones@email', '5554446666', '$2y$10$yRXZg1L3Ky..U1vC5YCNROBJjUucE2ca/CrRBfkFVGFUSdMS5CWyS', '1980-12-12', 1),
+(6, 1,'Admin', 'Admin', 'admin@email', '9998887777', '$2y$10$UMvX5/1QhcMHwd/ohiVebOE.bpm1lYIXHY0UbaCsxh5yOl7WtN/Si', '1982-02-20', 1),
+(7, 6, 'Family', 'Member', 'family@email', '2223334444', '$2y$10$ljIDtRwhhzYqNDG5sV0JEep8qrvkJA4XNIVWU7CPdVAYWcUbsAXde', '2000-11-11', 0),
+(8, 5,'patient', 'patient', 'patient@email', '8887776666', '$2y$10$cl.9a7O8OYDyUQeKAlOtX.P./GNK/sIS5anJXY8/Su3gqhTWrknvq', '1985-05-05', NULL),
+(9, 3,'Doctor', 'Doctor', 'doctor@email', '3333334444', '$2y$10$Ic.p8bcP2g9Cod9iZ/xGxeWbtE4cyH63YDbG4jGrUHZVZt6dWGeB.', '1979-06-11', 0),
+(10, 4, 'Caregiver', 'Caregiver', 'caregiver@email', '2227776666', '$2y$10$ZjtwKy70hs//buJot5yEGu.k4OfsGLta3Wtu8sqtxzYR/DppyfaU6', '1985-09-04', 1),
+(11, 2,'Supervisor', 'Supervisor', 'supervisor@email', '4445556666', '$2y$10$/ofKy9SbFsv7bUWwuEkvIe2XrLalkEDD6/77C4xUynBiG/pGGzGSK', '1980-10-10', NULL),
+(12, 5,'Sick', 'Dude', 'sick@email', '2222222222', '$2y$10$mFmA9EAD5xr6sSyPLrmxiO4555Rt53BbWcavJnCtZluKwh2X.BFue', '1981-01-01', 1);
+
+INSERT INTO `patients` (`user_id`, `group_id`, `admission`, `family_code`, `emergency_contact`, `emergency_contact_relation`) VALUES
 (1, NULL, NULL, '999999', 'Sally Smith', 'Sister'),
 (8, NULL, NULL, '123456', 'Patient Mom', 'Mom'),
 (12, NULL, NULL, '876543', 'mommy', 'mother');
 
-INSERT INTO `employees` (`emp_id`,`salary`,`group_id`) VALUES
+INSERT INTO `employees` (`user_id`,`salary`,`group_id`) VALUES
 (6,150000, 1),
 (4,100000,2),
 (10,30000,3),
