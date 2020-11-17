@@ -1,5 +1,7 @@
 <?php
 require "db.php";
+require "../includes/head.php";
+require "../includes/header.php";
 session_start();
 
 if ((isset($_POST["salSubmit"])) && ($_SESSION['sessionRole']== 1)) {
@@ -18,7 +20,7 @@ if ((isset($_POST["salSubmit"])) && ($_SESSION['sessionRole']== 1)) {
     mysqli_stmt_bind_param($stmt, "ii", $empSalary, $empID);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
+    header("location:javascript://history.go(-1)");
   }
-  header("Location: employees.php");
 }
 ?>
