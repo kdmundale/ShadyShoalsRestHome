@@ -86,9 +86,9 @@ echo <<< "NEW"
     } else {
       mysqli_stmt_execute($stmt2);
       $result2 = mysqli_stmt_get_result($stmt2);
-      echo "<select id='roleSelect' class='regSelect' name='regRole'>";
+      echo "<select id='roleSelect' class='regSelect' name='position'>";
       echo "<option>Select Position</option>";
-      echo "<option id='allPos' value='allPos'>All Positions</option>";
+      echo "<option id='allPos' value=20>All Positions</option>";
       while ($row2 = mysqli_fetch_array($result2)) {
         echo "<option id=".$row2['position']." value =".$row2['position'].">" . $row2['position'] . "</option>";
       }

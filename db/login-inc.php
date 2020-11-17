@@ -113,5 +113,5 @@ if (isset($_POST['submit'])) {
   exit();
 
 }
-
+require "../includes/footer.php";
  ?>

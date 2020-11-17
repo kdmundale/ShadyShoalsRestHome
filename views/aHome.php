@@ -46,6 +46,7 @@ HOME;
           while ($row = mysqli_fetch_array($result)) {
             echo "<option id=".$row['position']." value =".$row['position'].">" . $row['position'] . "</option>";
           }
+          echo "</select>";
         echo "<button class='homeButton' type='submit' name='empSubmit'>View Employees</button></form>";
 
         }

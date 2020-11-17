@@ -1,4 +1,8 @@
 <?php
+
+// require "../includes/head.php";
+// require "../includes/header.php";
+
 if(isset($_POST['submit'])){
  require 'db.php';
 
@@ -84,7 +88,7 @@ if(isset($_POST['submit'])){
             }
         }
        mysqli_stmt_close($stmt);
-       $sql = "INSERT INTO users (position_id, first_name, last_name, email, phone, dob, pass) VALUES (?,?,?,?,?,?,?,?)";
+       $sql = "INSERT INTO users (position_id, first_name, last_name, email, phone, dob, pass) VALUES (?,?,?,?,?,?,?)";
        $stmt = mysqli_stmt_init($conn);
        if(!mysqli_stmt_prepare($stmt,$sql)){
          echo "There was a problem inserting the data.";
@@ -93,11 +97,11 @@ if(isset($_POST['submit'])){
          exit();
       } else {
         $hashedpass =password_hash($password,PASSWORD_DEFAULT);
-        mysqli_stmt_bind_param($stmt,"isssssss",$position, $fName, $lName, $email, $phone, $DOB, $hashedpass);
+        mysqli_stmt_bind_param($stmt,"issssss",$regRole, $fName, $lName, $email, $phone, $DOB, $hashedpass);
         mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);
 
-        if ($regRole == 5) {
+        if ($regRole == "Patient") {
           $sql = "SELECT id FROM users WHERE email = ?";
           $stmt = mysqli_stmt_init($conn);
           if(!mysqli_stmt_prepare($stmt,$sql)){
@@ -111,8 +115,8 @@ if(isset($_POST['submit'])){
             $res = mysqli_stmt_get_result($stmt);
             mysqli_stmt_close($stmt);
             if ($row = mysqli_fetch_assoc($res)) {
-              $pat_id = $row['id'];
-              $sql = "INSERT INTO patients (pat_id, family_code, emergency_contact, emergency_contact_relation) VALUES (?,?,?,?)";
+              $user_id = $row['id'];
+              $sql = "INSERT INTO patients (user_id, family_code, emergency_contact, emergency_contact_relation) VALUES (?,?,?,?)";
               $stmt = mysqli_stmt_init($conn);
               if(!mysqli_stmt_prepare($stmt,$sql)){
                 echo "There was a problem with inserting patient information.";
@@ -120,7 +124,7 @@ if(isset($_POST['submit'])){
                 echo "<a href='../register.php'>Go back</a>";
                 exit();
               } else {
-               mysqli_stmt_bind_param($stmt, "isss", $pat_id, $famCode, $emCon, $patRel);
+               mysqli_stmt_bind_param($stmt, "isss", $user_id, $famCode, $emCon, $patRel);
                mysqli_stmt_execute($stmt);
                mysqli_stmt_close($stmt);
                header("Location: ../index.php?success=registered");
@@ -132,6 +136,42 @@ if(isset($_POST['submit'])){
           echo "<a href='../register.php'>Go back</a>";
         }
       }
+    } elseif ($regRole != "Patient" && $regRole != "Family Member") {
+      $sql = "SELECT id FROM users WHERE email = ?";
+      $stmt = mysqli_stmt_init($conn);
+      if(!mysqli_stmt_prepare($stmt,$sql)){
+        echo "There was an issue finding pat_id 1.";
+        echo "<br/>";
+        echo "<a href='../register.php'>Go back</a>";
+        exit();
+      } else {
+        mysqli_stmt_bind_param($stmt, "s", $email);
+        mysqli_stmt_execute($stmt);
+        $res = mysqli_stmt_get_result($stmt);
+        mysqli_stmt_close($stmt);
+        if ($row = mysqli_fetch_assoc($res)) {
+          $user_id = $row['id'];
+          $sql = "INSERT INTO employees (user_id) VALUES (?,?)";
+          $stmt = mysqli_stmt_init($conn);
+          if(!mysqli_stmt_prepare($stmt,$sql)){
+            echo "There was a problem with inserting employee information.";
+            echo "<br/>";
+            echo "<a href='../register.php'>Go back</a>";
+            exit();
+          } else {
+           mysqli_stmt_bind_param($stmt, "i", $user_id);
+           mysqli_stmt_execute($stmt);
+           mysqli_stmt_close($stmt);
+           header("Location: ../index.php?success=registered");
+           exit();
+      }
+    } else {
+      echo "There was an issue finding user_id 1.";
+      echo "<br/>";
+      echo "<a href='../register.php'>Go back</a>";
+    }
+  }
+
     } else {
       echo "You have been registered!";
       echo "<a href='../index.php'>Log In!</a>";
@@ -143,4 +183,5 @@ if(isset($_POST['submit'])){
 }
 mysqli_close($conn);
 }
+require "../includes/footer.php";
 ?>
