@@ -3,6 +3,8 @@
   require "../includes/head.php";
   require "../includes/header.php";
   session_start();
+
+
 if ((isset($_POST['empSubmit'])) && ($_SESSION['sessionRole']==1 || $_SESSION['sessionRole']==2)) {
 
   $empSelect = $_POST['position'];
@@ -44,37 +46,15 @@ if ((isset($_POST['empSubmit'])) && ($_SESSION['sessionRole']==1 || $_SESSION['s
     } else {
       mysqli_stmt_execute($stmt);
       $result = mysqli_stmt_get_result($stmt);
+      $empSelect = "All Positions";
     }
 
   }
   echo "<h1>Welcome, ".$_SESSION['userName']."</h1>";
   require "../includes/ASMenu.php";
 
-  echo "<form id='employeeList' class='homeForm' action='../db/employees.php' method='post'>";
-  echo "<label for='empList'>View employees </label>";
-  $sql2 = "SELECT position FROM role_security WHERE sec_level < 5;";
-  $stmt2 = mysqli_stmt_init($conn);
-  if (!mysqli_stmt_prepare($stmt2,$sql2)){
-    echo "There was an error with the server 1.";
-    echo "<br/>";
-    echo "<a href='../index.php'>Go back</a>";
-    exit();
-  } else {
-    mysqli_stmt_execute($stmt2);
-    $result2 = mysqli_stmt_get_result($stmt2);
-    echo "<select id='roleSelect' class='regSelect' name='position'>";
-    echo "<option>Select Position</option>";
-    echo "<option id='allPos' value='allPos'>All Positions</option>";
-    while ($row2 = mysqli_fetch_array($result2)) {
-      echo "<option id=".$row2['position']." value =".$row2['position'].">" . $row2['position'] . "</option>";
-    }
-    echo "</select>";
-    mysqli_stmt_close($stmt2);
-  echo "<button class='homeButton' type='submit' name='empSubmit'>View Employees</button></form>";
-
-  }
-
-  echo "<h1 style='margin-top:20px;'></h1>";
+  echo "<section id='empInfo'>";
+  echo "<h1 style='margin-top:20px;'>".$empSelect."</h1>";
   echo '<table class="data-table">
           <tr class="data-heading">';  //initialize table tag
   while ($property = mysqli_fetch_field($result)) {
@@ -98,7 +78,7 @@ if ((isset($_POST['empSubmit'])) && ($_SESSION['sessionRole']==1 || $_SESSION['s
   if ($_SESSION['sessionRole']==1){
     echo <<< "EMP"
     <br/>
-    <form id="editSal" class="empEdit" action="edit_salary.php" method="post">
+    <form id="editSal" class="empEdit" action="" method="post">
     <label for="empID">Employee ID</label>
     <input type="number" name="empID" placeholder="Emp ID"></input>
     <label for="empSal">Employee Salary</label>
@@ -106,12 +86,38 @@ if ((isset($_POST['empSubmit'])) && ($_SESSION['sessionRole']==1 || $_SESSION['s
     <button id="salSub" class="homeButton" type="submit" name="salSubmit">Change Salary</button>
     </form>
     EMP;
+
+    if ((isset($_POST["salSubmit"])) && ($_SESSION['sessionRole']== 1)) {
+
+      $empID = $_POST['empID'];
+      $empSalary = $_POST['empSal'];
+
+      $sql = "UPDATE employees SET salary = ? WHERE user_id = ?";
+      $stmt = mysqli_stmt_init($conn);
+      if(!mysqli_stmt_prepare($stmt,$sql)){
+        echo "There was an issue updating the table.";
+        echo "<br/>";
+        echo "<a href='approve.php'>Go back</a>";
+        exit();
+      } else {
+        mysqli_stmt_bind_param($stmt, "ii", $empSalary, $empID);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+        // header('Location: '.$_SERVER['REQUEST_URI']);
+        echo "<h1>Success! The salary has been changed.</h1>";
+        echo "<button style='font-sixe: 20px; padding: 5px; margin-bottom:80px' id='go-back'>Go back!</button>";
+        echo "<script>document.getElementById('go-back').addEventListener('click', () => {history.back();});</script>";
+      }
+    }
   }
-  echo <<< "NEW2"
-  </div>
-  </section>
-  NEW2;
-  require "../includes/footer.php";
+echo "</section>";
+
+echo <<< "NEW2"
+
+</div>
+</article>
+NEW2;
+require "../includes/footer.php";
 
 
 ?>

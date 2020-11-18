@@ -116,13 +116,6 @@ p {
   margin: 10px auto;
 }
 
-.regLabel {
-  font-size: 18px;
-  text-align: center;
-  font-variant: small-caps;
-  font-weight: bold;
-  margin: 0px;
-}
 #patInfo{
   display: none;
   flex-direction: column;
@@ -211,18 +204,14 @@ ul {
   display: inline-block;
 }
 
-#userStatus, #employeeList {
+#userStatus, #employeeList, #newRoleForm {
   font-size: 20px;
-  margin: 20px auto;
+  margin: auto;
   display: none;
   flex-direction: column;
   align-items: center;
   width: 80%;
   background-color: rgb(187,154,195);
-}
-
-#employeeList {
-  margin: auto;
 }
 
 #userStatus {

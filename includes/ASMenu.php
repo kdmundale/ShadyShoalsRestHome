@@ -1,5 +1,5 @@
 <a href="../db/logout.php">Logout</a>
-<section class="homeMain">
+<article class="homeMain">
 <nav>
   <ul>
     <li><button class="homeButton" id="home" type="button" name="home">Home</button></li>
@@ -23,7 +23,46 @@
     </select>
     <button class="homeButton" type="submit" name="submit">View Users</button>
   </form>
-  <br/>
+  <form id="newRoleForm" class="homeForm" action="" method="post">
+    <label for="newPosName">Create New Role</label>
+    <input type="text" name="newPosName" placeholder="New Role Name">
+    <label for="secLevel">Set Access/Permissions Level</label>
+    <select name="secLevel">
+      <option value="">Set Level</option>
+      <option value=5>5</option>
+      <option value=4>4</option>
+      <option value=3>3</option>
+      <option value=2>2</option>
+      <option value=1>1</option>
+    </select>
+    <button class="homeButton" type="submit" name="roleSubmit">View Users</button>
+  </form>
   <form id="employeeList" class="homeForm" action="../db/employees.php" method="post">
-    <form class="register" action="db/register-inc.php" method="post">
-      <label class="regLabel" for="regSelect">View Employees By Position</label>
+      <label for="regSelect">View Employees By Position</label>
+      <?php
+      require "../db/db.php";
+
+      echo "<form id='employeeList' class='homeForm' action='../db/employees.php' method='post'>";
+      echo "<label for='empList'>View employees </label>";
+      $sql2 = "SELECT position FROM role_security WHERE sec_level < 5;";
+      $stmt2 = mysqli_stmt_init($conn);
+      if (!mysqli_stmt_prepare($stmt2,$sql2)){
+        echo "There was an error with the server 1.";
+        echo "<br/>";
+        echo "<a href='../index.php'>Go back</a>";
+        exit();
+      } else {
+        mysqli_stmt_execute($stmt2);
+        $result2 = mysqli_stmt_get_result($stmt2);
+        echo "<select id='roleSelect' class='regSelect' name='position'>";
+        echo "<option>Select Position</option>";
+        echo "<option id='allPos' value='allPos'>All Positions</option>";
+        while ($row2 = mysqli_fetch_array($result2)) {
+          echo "<option id=".$row2['position']." value =".$row2['position'].">" . $row2['position'] . "</option>";
+        }
+        echo "</select>";
+        mysqli_stmt_close($stmt2);
+      echo "<button class='homeButton' type='submit' name='empSubmit'>View Employees</button></form>";
+
+      }
+      ?>
