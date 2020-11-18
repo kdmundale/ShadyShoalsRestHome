@@ -253,3 +253,7 @@ td {
 .empEdit {
   display: inline-block;
 }
+
+#role_list {
+  display: none;
+}

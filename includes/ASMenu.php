@@ -46,6 +46,26 @@
     <button class="homeButton" type="submit" name="roleSubmit">View Users</button>
   </form>
   ROLE;
+
+  require "../db/db.php";
+  echo "<div id='role_list'>";
+  $sql3 = "SELECT * FROM role_security;";
+  $stmt3 = mysqli_stmt_init($conn);
+  if (!mysqli_stmt_prepare($stmt3,$sql3)){
+    echo "There was an error with the server 1.";
+    echo "<br/>";
+    echo "<a href='../index.php'>Go back</a>";
+    exit();
+  } else {
+    mysqli_stmt_execute($stmt3);
+    $result3 = mysqli_stmt_get_result($stmt3);
+    echo "<ul>";
+    while ($row3 = mysqli_fetch_array($result3)) {
+      echo "<li> User Role: " . $row3['position'] . " Security Level: " .$row3['sec_level']. "</li>";
+    }
+    echo "</ul></div>";
+    mysqli_stmt_close($stmt3);
+  }
   }
   ?>
   <form id="employeeList" class="homeForm" action="../db/employees.php" method="post">
