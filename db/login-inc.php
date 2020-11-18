@@ -72,7 +72,7 @@ if (isset($_POST['submit'])) {
           header("Location: ../views/aHome.php?success=login");
           exit();
         } elseif ($role == 2){
-          header("Location: ../views/sHome.php?success=login");
+          header("Location: ../views/aHome.php?success=login");
           exit();
         } elseif ($role == 3) {
           header("Location: ../views/dHome.php?success=login");
@@ -84,21 +84,20 @@ if (isset($_POST['submit'])) {
           header("Location: ../views/oHome.php?success=login");
           exit();
         } else {
-          echo "There was problem logging in.";
+          echo "<h1>There was problem logging in.</h1>";
           echo "<br/>";
           echo "<a href='../index.php'>Go back</a>";
           exit();
         }
       }
     } else {
-      echo "Either the email or password was incorrect.";
+      echo "<h1>Either the email or password was incorrect.</h1>";
       echo "<br/>";
       echo "<a href='../index.php'>Go back</a>";
       exit();
     }
     } else {
-      echo "There is no account with this email";
-      echo $row['email'];
+      echo "<h1>There is no account with this email</h1>";
       echo "<br/>";
       echo "<a href='../index.php'>Go back</a>";
       exit();
@@ -107,7 +106,7 @@ if (isset($_POST['submit'])) {
   }
 
 } else {
-  echo "Please login to view.";
+  echo "<h1>Please login to view.</h1>";
   echo "<br/>";
   echo "<a href='../index.php'>Go back</a>";
   exit();

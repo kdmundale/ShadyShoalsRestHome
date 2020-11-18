@@ -5,7 +5,11 @@
     <li><button class="homeButton" id="home" type="button" name="home">Home</button></li>
     <li><button class="homeButton" id="reg" type="button" name="registratin">Registration</button></li>
     <li><button class="homeButton" id="emp" type="button" name="employee">Employee Information</button></li>
-    <li><button class="homeButton" id="newRole" type="button" name="newRoleForm">Create New Role</button></li>
+    <?php
+    if ($_SESSION['sessionRole']== 1) {
+    echo "<li><button class='homeButton' id='newRole' type='button' name='newRoleForm'>Create New Role</button></li>";
+    }
+    ?>
     <li><button class="homeButton" id="ros" type="button" name="rosterForm">View Roster</button></li>
     <script defer src="../js/homePage.js" type="text/javascript"></script>
   </ul>
@@ -23,12 +27,16 @@
     </select>
     <button class="homeButton" type="submit" name="submit">View Users</button>
   </form>
+  <?php
+  if ($_SESSION['sessionRole']== 1) {
+  echo <<< "ROLE"
   <form id="newRoleForm" class="homeForm" action="" method="post">
     <label for="newPosName">Create New Role</label>
     <input type="text" name="newPosName" placeholder="New Role Name">
     <label for="secLevel">Set Access/Permissions Level</label>
     <select name="secLevel">
       <option value="">Set Level</option>
+      <option value=6>6</option>
       <option value=5>5</option>
       <option value=4>4</option>
       <option value=3>3</option>
@@ -37,6 +45,9 @@
     </select>
     <button class="homeButton" type="submit" name="roleSubmit">View Users</button>
   </form>
+  ROLE;
+  }
+  ?>
   <form id="employeeList" class="homeForm" action="../db/employees.php" method="post">
       <label for="regSelect">View Employees By Position</label>
       <?php
