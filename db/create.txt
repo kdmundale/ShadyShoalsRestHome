@@ -20,7 +20,7 @@ create table appointments (appt_id int(20) primary key AUTO_INCREMENT not null, 
 
 create table daily (daily_id int(20) primary key not null AUTO_INCREMENT, caregiver_id int(10) not null, foreign key(caregiver_id) REFERENCES users(id), pat_id int(10) not null, FOREIGN key (pat_id) REFERENCES users(id), care_date date, morn_med boolean, aft_med boolean, night_med boolean, breakfast boolean, lunch boolean, dinner boolean);
 
-create table roster (daily_id int(20) primary key not null AUTO_INCREMENT, care_date date not null, group_id int(1) not null, doctor_id int(10),foreign key(doctor_id) references users(id), caregiver_id int(10),foreign key(caregiver_id) REFERENCES users(id));
+create table roster (daily_id int(20) primary key not null AUTO_INCREMENT, care_date date not null, group_id int(1) not null, doctor_id int(10),foreign key(doctor_id) references users(id), caregiver1_id int(10),foreign key(caregiver1_id) REFERENCES users(id),caregiver2_id int(10),foreign key(caregiver2_id) REFERENCES users(id),caregiver3_id int(10),foreign key(caregiver3_id) REFERENCES users(id),caregiver4_id int(10),foreign key(caregiver4_id) REFERENCES users(id));
 
 create table payment_update (id int(20) PRIMARY KEY not null AUTO_INCREMENT, update_date date);
 
@@ -42,10 +42,12 @@ INSERT INTO `users` (`id`,`position_id`, `first_name`, `last_name`, `email`, `ph
 (6, 1,'Admin', 'Admin', 'admin@email', '9998887777', '$2y$10$UMvX5/1QhcMHwd/ohiVebOE.bpm1lYIXHY0UbaCsxh5yOl7WtN/Si', '1982-02-20', 1),
 (7, 6, 'Family', 'Member', 'family@email', '2223334444', '$2y$10$ljIDtRwhhzYqNDG5sV0JEep8qrvkJA4XNIVWU7CPdVAYWcUbsAXde', '2000-11-11', 0),
 (8, 5,'patient', 'patient', 'patient@email', '8887776666', '$2y$10$cl.9a7O8OYDyUQeKAlOtX.P./GNK/sIS5anJXY8/Su3gqhTWrknvq', '1985-05-05', NULL),
-(9, 3,'Doctor', 'Doctor', 'doctor@email', '3333334444', '$2y$10$Ic.p8bcP2g9Cod9iZ/xGxeWbtE4cyH63YDbG4jGrUHZVZt6dWGeB.', '1979-06-11', 0),
+(9, 3,'Doctor', 'Doctor', 'doctor@email', '3333334444', '$2y$10$Ic.p8bcP2g9Cod9iZ/xGxeWbtE4cyH63YDbG4jGrUHZVZt6dWGeB.', '1979-06-11', 1),
 (10, 4, 'Caregiver', 'Caregiver', 'caregiver@email', '2227776666', '$2y$10$ZjtwKy70hs//buJot5yEGu.k4OfsGLta3Wtu8sqtxzYR/DppyfaU6', '1985-09-04', 1),
 (11, 2,'Supervisor', 'Supervisor', 'supervisor@email', '4445556666', '$2y$10$/ofKy9SbFsv7bUWwuEkvIe2XrLalkEDD6/77C4xUynBiG/pGGzGSK', '1980-10-10', NULL),
-(12, 5,'Sick', 'Dude', 'sick@email', '2222222222', '$2y$10$mFmA9EAD5xr6sSyPLrmxiO4555Rt53BbWcavJnCtZluKwh2X.BFue', '1981-01-01', 1);
+(12, 5,'Sick', 'Dude', 'sick@email', '2222222222', '$2y$10$mFmA9EAD5xr6sSyPLrmxiO4555Rt53BbWcavJnCtZluKwh2X.BFue', '1981-01-01', 1),
+(13, 4, 'Anne', 'Smith', 'asmith@email', '5555555555', '$2y$10$9tNg.PDYJxxQy7mAIr0WyO/5t0SHEaloHnpX5ICcnzT6G85G5gjoe', '2001-11-11', 1),
+(14, 4, 'Billy', 'Bob', 'bbob@email', '3333333333', '$2y$10$rKSp8gbsHs75.WA0tohO7.r1iaOZxmQWetIh81eCh/K36t0SU809O', '1993-03-03', 1);
 
 INSERT INTO `patients` (`user_id`, `group_id`, `admission`, `family_code`, `emergency_contact`, `emergency_contact_relation`) VALUES
 (1, NULL, NULL, '999999', 'Sally Smith', 'Sister'),
@@ -56,9 +58,53 @@ INSERT INTO `employees` (`user_id`,`salary`) VALUES
 (6,150000),
 (4,100000),
 (10,30000),
-(5,75000);
+(5,75000),
+(13, 40000),
+(14, 40000);
 
 INSERT INTO `employees` (`user_id`) VALUES
 (3),
 (9),
 (11);
+
+INSERT INTO `roster` (`care_date`,`group_id`, `doctor_id`, `caregiver1_id`, `caregiver2_id`,`caregiver3_id`, `caregiver4_id`) VALUES
+('2020-10-01',1, 4, 3,10,13,14),
+('2020-10-02',1, 9, 3,10,13,14),
+('2020-10-03',1, 9, 13,10,3,14),
+('2020-10-04',1, 4, 13,10,3,14),
+('2020-10-05',1, 4, 13,14,3,10),
+('2020-10-06',1, 9, 13,10,3,14),
+('2020-10-07',1, 4, 3,10,13,14),
+('2020-10-08',1, 9, 13,10,3,14),
+('2020-10-09',1, 4, 14,10,3,13),
+('2020-10-10',1, 9, 13,10,3,14),
+('2020-10-01',2, 9, 3,10,13,14),
+('2020-10-02',2, 4, 10,3,13,14),
+('2020-10-03',2, 4, 13,3,10,14),
+('2020-10-04',2, 9, 13,3,10,14),
+('2020-10-05',2, 9, 13,14,10,10),
+('2020-10-06',2, 4, 13,3,10,14),
+('2020-10-07',2, 9, 10,3,13,14),
+('2020-10-08',2, 4, 13,3,10,14),
+('2020-10-09',2, 9, 14,3,10,13),
+('2020-10-10',2, 4, 13,3,10,14),
+('2020-10-01',3, 4, 3,10,13,14),
+('2020-10-02',3, 9, 3,10,13,14),
+('2020-10-03',3, 9, 13,10,3,14),
+('2020-10-04',3, 4, 13,10,3,14),
+('2020-10-05',3, 4, 13,14,3,10),
+('2020-10-06',3, 9, 13,10,3,14),
+('2020-10-07',3, 4, 3,10,13,14),
+('2020-10-08',3, 9, 13,10,3,14),
+('2020-10-09',3, 4, 14,10,3,13),
+('2020-10-10',3, 9, 13,10,3,14),
+('2020-10-01',4, 4, 3,10,13,14),
+('2020-10-02',4, 9, 3,10,13,14),
+('2020-10-03',4, 9, 13,10,3,14),
+('2020-10-04',4, 4, 13,10,3,14),
+('2020-10-05',4, 4, 13,14,3,10),
+('2020-10-06',4, 9, 13,10,3,14),
+('2020-10-07',4, 4, 3,10,13,14),
+('2020-10-08',4, 9, 13,10,3,14),
+('2020-10-09',4, 4, 14,10,3,13),
+('2020-10-10',4, 9, 13,10,3,14);

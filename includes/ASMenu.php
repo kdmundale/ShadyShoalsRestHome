@@ -31,7 +31,7 @@
   if ($_SESSION['sessionRole']== 1) {
 
   require "../db/db.php";
-  echo "<div id='role_list'>";
+  echo "<div id='role_list'><h2>Portal Roles</h2>";
   $sql3 = "SELECT * FROM role_security;";
   $stmt3 = mysqli_stmt_init($conn);
   if (!mysqli_stmt_prepare($stmt3,$sql3)){
@@ -52,7 +52,7 @@
     mysqli_stmt_close($stmt3);
   }
   echo <<< "ROLE"
-  <form id="newRoleForm" class="homeForm" action="" method="post">
+  <form id="newRoleForm" class="homeForm" action="../db/new_role.php" method="post">
     <label for="newPosName">Create New Role</label>
     <input type="text" name="newPosName" placeholder="New Role Name">
     <label for="secLevel">Set Access/Permissions Level</label>
@@ -65,7 +65,7 @@
       <option value=2>2</option>
       <option value=1>1</option>
     </select>
-    <button class="homeButton" type="submit" name="roleSubmit">View Users</button>
+    <button class="homeButton" type="submit" name="roleSubmit">Add Role</button>
   </form>
   ROLE;
   }

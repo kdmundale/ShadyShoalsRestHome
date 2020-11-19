@@ -151,7 +151,7 @@ if(isset($_POST['submit'])){
         mysqli_stmt_close($stmt);
         if ($row = mysqli_fetch_assoc($res)) {
           $user_id = $row['id'];
-          $sql = "INSERT INTO employees (user_id) VALUES (?,?)";
+          $sql = "INSERT INTO employees (user_id) VALUES (?)";
           $stmt = mysqli_stmt_init($conn);
           if(!mysqli_stmt_prepare($stmt,$sql)){
             echo "There was a problem with inserting employee information.";
