@@ -106,120 +106,65 @@
         <?php
         require "../db/db.php";
 
+        function empDropdown ($positionID, $name, $display){
+          require "../db/db.php";
+          $sql = "SELECT u.id, u.first_name, u.last_name, e.emp_id FROM users u LEFT JOIN  employees e on u.id = e.user_id WHERE u.position_id = ? AND u.status =1;";
+          $stmt = mysqli_stmt_init($conn);
+          if (!mysqli_stmt_prepare($stmt,$sql)){
+            echo "There was an error with the server 1.";
+            echo "<br/>";
+            echo "<a href='../index.php'>Go back</a>";
+            exit();
+          } else {
+            mysqli_stmt_bind_param($stmt,"i", $positionID);
+            mysqli_stmt_execute($stmt);
+            $result = mysqli_stmt_get_result($stmt);
+            echo "<select class='rosForm' id='supervisor' name=".$name.">";
+            echo "<option>Select ".$display."</option>";
+            while ($row = mysqli_fetch_array($result)) {
+              echo "<option value =".$row['id'].">".$row['first_name']." ".$row['last_name']." - Employee ID:".$row['emp_id']."</option>";
+            }
+            echo "</select>";
+            mysqli_stmt_close($stmt);
+          }
+        }
+
         echo "<label class='rosForm' for='supervisor'>Supervisor</label>";
-        $sql4 = "SELECT u.id, u.first_name, u.last_name, e.emp_id FROM users u LEFT JOIN  employees e on u.id = e.user_id WHERE u.position_id = 2 AND u.status =1;";
-        $stmt4 = mysqli_stmt_init($conn);
-        if (!mysqli_stmt_prepare($stmt4,$sql4)){
-          echo "There was an error with the server 1.";
-          echo "<br/>";
-          echo "<a href='../index.php'>Go back</a>";
-          exit();
-        } else {
-          mysqli_stmt_execute($stmt4);
-          $result4 = mysqli_stmt_get_result($stmt4);
-          echo "<select class='rosForm' id='supervisor' name='supervisor'>";
-          echo "<option>Select Supervisor</option>";
-          while ($row4 = mysqli_fetch_array($result4)) {
-            echo "<option value =".$row4['id'].">".$row4['first_name']." ".$row4['last_name']."/".$row4['emp_id']."</option>";
-          }
-          echo "</select>";
-          mysqli_stmt_close($stmt4);
-        }
+        $positionID = 2;
+        $name = 'supervisor';
+        $display = "Supervisor";
+        empDropdown($positionID, $name, $display);
+
         echo "<label for='doctor'>Doctor</label>";
-        $sql4 = "SELECT u.id, u.first_name, u.last_name, e.emp_id FROM users u LEFT JOIN  employees e on u.id = e.user_id WHERE u.position_id = 3 AND u.status =1;";
-        $stmt4 = mysqli_stmt_init($conn);
-        if (!mysqli_stmt_prepare($stmt4,$sql4)){
-          echo "There was an error with the server 1.";
-          echo "<br/>";
-          echo "<a href='../index.php'>Go back</a>";
-          exit();
-        } else {
-          mysqli_stmt_execute($stmt4);
-          $result4 = mysqli_stmt_get_result($stmt4);
-          echo "<select class='rosForm' id='doctor' name='doctor'>";
-          echo "<option>Select Doctor</option>";
-          while ($row4 = mysqli_fetch_array($result4)) {
-            echo "<option value =".$row4['id'].">".$row4['first_name']." ".$row4['last_name']."/".$row4['emp_id']."</option>";
-          }
-          echo "</select>";
-          mysqli_stmt_close($stmt4);
-        }
+        $positionID = 3;
+        $name = 'doctor';
+        $display = "Doctor";
+        empDropdown($positionID, $name, $display);
+
         echo "<label for='care1'>Caregiver 1</label>";
-        $sql4 = "SELECT u.id, u.first_name, u.last_name, e.emp_id FROM users u LEFT JOIN  employees e on u.id = e.user_id WHERE u.position_id = 4 AND u.status =1;";
-        $stmt4 = mysqli_stmt_init($conn);
-        if (!mysqli_stmt_prepare($stmt4,$sql4)){
-          echo "There was an error with the server 1.";
-          echo "<br/>";
-          echo "<a href='../index.php'>Go back</a>";
-          exit();
-        } else {
-          mysqli_stmt_execute($stmt4);
-          $result4 = mysqli_stmt_get_result($stmt4);
-          echo "<select class='rosForm' id='care1' name='care1'>";
-          echo "<option>Select Caregiver</option>";
-          while ($row4 = mysqli_fetch_array($result4)) {
-            echo "<option value =".$row4['id'].">".$row4['first_name']." ".$row4['last_name']."/".$row4['emp_id']."</option>";
-          }
-          echo "</select>";
-          mysqli_stmt_close($stmt4);
-        }
+        $positionID = 4;
+        $name ='care1';
+        $display = 'Caregiver 1';
+        empDropdown($positionID, $name, $display);
+
         echo "<label for='care2'>Caregiver 2</label>";
-        $sql4 = "SELECT u.id, u.first_name, u.last_name, e.emp_id FROM users u LEFT JOIN  employees e on u.id = e.user_id WHERE u.position_id = 4 AND u.status =1;";
-        $stmt4 = mysqli_stmt_init($conn);
-        if (!mysqli_stmt_prepare($stmt4,$sql4)){
-          echo "There was an error with the server 1.";
-          echo "<br/>";
-          echo "<a href='../index.php'>Go back</a>";
-          exit();
-        } else {
-          mysqli_stmt_execute($stmt4);
-          $result4 = mysqli_stmt_get_result($stmt4);
-          echo "<select class='rosForm' id='care2' name='care2'>";
-          echo "<option>Select Caregiver</option>";
-          while ($row4 = mysqli_fetch_array($result4)) {
-            echo "<option value =".$row4['id'].">".$row4['first_name']." ".$row4['last_name']."/".$row4['emp_id']."</option>";
-          }
-          echo "</select>";
-          mysqli_stmt_close($stmt4);
-        }
+        $positionID = 4;
+        $name ='care2';
+        $display = 'Caregiver 2';
+        empDropdown($positionID, $name, $display);
+
         echo "<label for='care3'>Caregiver 3</label>";
-        $sql4 = "SELECT u.id, u.first_name, u.last_name, e.emp_id FROM users u LEFT JOIN  employees e on u.id = e.user_id WHERE u.position_id = 4 AND u.status =1;";
-        $stmt4 = mysqli_stmt_init($conn);
-        if (!mysqli_stmt_prepare($stmt4,$sql4)){
-          echo "There was an error with the server 1.";
-          echo "<br/>";
-          echo "<a href='../index.php'>Go back</a>";
-          exit();
-        } else {
-          mysqli_stmt_execute($stmt4);
-          $result4 = mysqli_stmt_get_result($stmt4);
-          echo "<select class='rosForm' id='care3' name='care3'>";
-          echo "<option>Select Caregiver</option>";
-          while ($row4 = mysqli_fetch_array($result4)) {
-            echo "<option value =".$row4['id'].">".$row4['first_name']." ".$row4['last_name']."/".$row4['emp_id']."</option>";
-          }
-          echo "</select>";
-          mysqli_stmt_close($stmt4);
-        }
+        $positionID = 4;
+        $name ='care3';
+        $display = 'Caregiver 3';
+        empDropdown($positionID, $name, $display);
+
         echo "<label for='care4'>Caregiver 4</label>";
-        $sql4 = "SELECT u.id, u.first_name, u.last_name, e.emp_id FROM users u LEFT JOIN  employees e on u.id = e.user_id WHERE u.position_id = 4 AND u.status =1;";
-        $stmt4 = mysqli_stmt_init($conn);
-        if (!mysqli_stmt_prepare($stmt4,$sql4)){
-          echo "There was an error with the server 1.";
-          echo "<br/>";
-          echo "<a href='../index.php'>Go back</a>";
-          exit();
-        } else {
-          mysqli_stmt_execute($stmt4);
-          $result4 = mysqli_stmt_get_result($stmt4);
-          echo "<select class='rosForm' id='care4' name='care4'>";
-          echo "<option>Select Caregiver</option>";
-          while ($row4 = mysqli_fetch_array($result4)) {
-            echo "<option value =".$row4['id'].">".$row4['first_name']." ".$row4['last_name']."/".$row4['emp_id']."</option>";
-          }
-          echo "</select>";
-          mysqli_stmt_close($stmt4);
-        }
+        $positionID = 4;
+        $name ='care4';
+        $display = 'Caregiver 4';
+        empDropdown($positionID, $name, $display);
+
         ?>
         <button class="homeButton" type="submit" name="rosSubmit">Add Roster</button>
       </form>
