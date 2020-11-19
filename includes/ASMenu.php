@@ -10,7 +10,7 @@
     echo "<li><button class='homeButton' id='newRole' type='button' name='newRoleForm'>Create New Role</button></li>";
     }
     ?>
-    <li><button class="homeButton" id="ros" type="button" name="rosterForm">View Roster</button></li>
+    <li><button class="homeButton" id="ros" type="button" name="rosterForm">Create Roster</button></li>
     <script defer src="../js/homePage.js" type="text/javascript"></script>
   </ul>
 </nav>
@@ -99,3 +99,127 @@
 
       }
       ?>
+      <form id="newRoster" class="homeForm" action="../db/roster.php" method="post">
+        <h2>Create Daily Roster</h2>
+        <label class='rosForm' for="careDate">Care Date</lable>
+        <input class='rosForm' type="date" name="careDate" value="">
+        <?php
+        require "../db/db.php";
+
+        echo "<label class='rosForm' for='supervisor'>Supervisor</label>";
+        $sql4 = "SELECT u.id, u.first_name, u.last_name, e.emp_id FROM users u LEFT JOIN  employees e on u.id = e.user_id WHERE u.position_id = 2 AND u.status =1;";
+        $stmt4 = mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt4,$sql4)){
+          echo "There was an error with the server 1.";
+          echo "<br/>";
+          echo "<a href='../index.php'>Go back</a>";
+          exit();
+        } else {
+          mysqli_stmt_execute($stmt4);
+          $result4 = mysqli_stmt_get_result($stmt4);
+          echo "<select class='rosForm' id='supervisor' name='supervisor'>";
+          echo "<option>Select Supervisor</option>";
+          while ($row4 = mysqli_fetch_array($result4)) {
+            echo "<option value =".$row4['id'].">".$row4['first_name']." ".$row4['last_name']."/".$row4['emp_id']."</option>";
+          }
+          echo "</select>";
+          mysqli_stmt_close($stmt4);
+        }
+        echo "<label for='doctor'>Doctor</label>";
+        $sql4 = "SELECT u.id, u.first_name, u.last_name, e.emp_id FROM users u LEFT JOIN  employees e on u.id = e.user_id WHERE u.position_id = 3 AND u.status =1;";
+        $stmt4 = mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt4,$sql4)){
+          echo "There was an error with the server 1.";
+          echo "<br/>";
+          echo "<a href='../index.php'>Go back</a>";
+          exit();
+        } else {
+          mysqli_stmt_execute($stmt4);
+          $result4 = mysqli_stmt_get_result($stmt4);
+          echo "<select class='rosForm' id='doctor' name='doctor'>";
+          echo "<option>Select Doctor</option>";
+          while ($row4 = mysqli_fetch_array($result4)) {
+            echo "<option value =".$row4['id'].">".$row4['first_name']." ".$row4['last_name']."/".$row4['emp_id']."</option>";
+          }
+          echo "</select>";
+          mysqli_stmt_close($stmt4);
+        }
+        echo "<label for='care1'>Caregiver 1</label>";
+        $sql4 = "SELECT u.id, u.first_name, u.last_name, e.emp_id FROM users u LEFT JOIN  employees e on u.id = e.user_id WHERE u.position_id = 4 AND u.status =1;";
+        $stmt4 = mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt4,$sql4)){
+          echo "There was an error with the server 1.";
+          echo "<br/>";
+          echo "<a href='../index.php'>Go back</a>";
+          exit();
+        } else {
+          mysqli_stmt_execute($stmt4);
+          $result4 = mysqli_stmt_get_result($stmt4);
+          echo "<select class='rosForm' id='care1' name='care1'>";
+          echo "<option>Select Caregiver</option>";
+          while ($row4 = mysqli_fetch_array($result4)) {
+            echo "<option value =".$row4['id'].">".$row4['first_name']." ".$row4['last_name']."/".$row4['emp_id']."</option>";
+          }
+          echo "</select>";
+          mysqli_stmt_close($stmt4);
+        }
+        echo "<label for='care2'>Caregiver 2</label>";
+        $sql4 = "SELECT u.id, u.first_name, u.last_name, e.emp_id FROM users u LEFT JOIN  employees e on u.id = e.user_id WHERE u.position_id = 4 AND u.status =1;";
+        $stmt4 = mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt4,$sql4)){
+          echo "There was an error with the server 1.";
+          echo "<br/>";
+          echo "<a href='../index.php'>Go back</a>";
+          exit();
+        } else {
+          mysqli_stmt_execute($stmt4);
+          $result4 = mysqli_stmt_get_result($stmt4);
+          echo "<select class='rosForm' id='care2' name='care2'>";
+          echo "<option>Select Caregiver</option>";
+          while ($row4 = mysqli_fetch_array($result4)) {
+            echo "<option value =".$row4['id'].">".$row4['first_name']." ".$row4['last_name']."/".$row4['emp_id']."</option>";
+          }
+          echo "</select>";
+          mysqli_stmt_close($stmt4);
+        }
+        echo "<label for='care3'>Caregiver 3</label>";
+        $sql4 = "SELECT u.id, u.first_name, u.last_name, e.emp_id FROM users u LEFT JOIN  employees e on u.id = e.user_id WHERE u.position_id = 4 AND u.status =1;";
+        $stmt4 = mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt4,$sql4)){
+          echo "There was an error with the server 1.";
+          echo "<br/>";
+          echo "<a href='../index.php'>Go back</a>";
+          exit();
+        } else {
+          mysqli_stmt_execute($stmt4);
+          $result4 = mysqli_stmt_get_result($stmt4);
+          echo "<select class='rosForm' id='care3' name='care3'>";
+          echo "<option>Select Caregiver</option>";
+          while ($row4 = mysqli_fetch_array($result4)) {
+            echo "<option value =".$row4['id'].">".$row4['first_name']." ".$row4['last_name']."/".$row4['emp_id']."</option>";
+          }
+          echo "</select>";
+          mysqli_stmt_close($stmt4);
+        }
+        echo "<label for='care4'>Caregiver 4</label>";
+        $sql4 = "SELECT u.id, u.first_name, u.last_name, e.emp_id FROM users u LEFT JOIN  employees e on u.id = e.user_id WHERE u.position_id = 4 AND u.status =1;";
+        $stmt4 = mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt4,$sql4)){
+          echo "There was an error with the server 1.";
+          echo "<br/>";
+          echo "<a href='../index.php'>Go back</a>";
+          exit();
+        } else {
+          mysqli_stmt_execute($stmt4);
+          $result4 = mysqli_stmt_get_result($stmt4);
+          echo "<select class='rosForm' id='care4' name='care4'>";
+          echo "<option>Select Caregiver</option>";
+          while ($row4 = mysqli_fetch_array($result4)) {
+            echo "<option value =".$row4['id'].">".$row4['first_name']." ".$row4['last_name']."/".$row4['emp_id']."</option>";
+          }
+          echo "</select>";
+          mysqli_stmt_close($stmt4);
+        }
+        ?>
+        <button class="homeButton" type="submit" name="rosSubmit">Add Roster</button>
+      </form>

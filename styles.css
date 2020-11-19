@@ -204,7 +204,7 @@ ul {
   display: inline-block;
 }
 
-#userStatus, #employeeList, #newRoleForm {
+#userStatus, #employeeList, #newRoleForm, #newRoster {
   font-size: 20px;
   margin: auto;
   display: none;
@@ -214,11 +214,8 @@ ul {
   background-color: rgb(187,154,195);
 }
 
-#userStatus {
-  display: none;
-}
-#employeeList {
-  display: none;
+#newRoster {
+  flex-direction: column;
 }
 
 .homeButton {
@@ -256,4 +253,7 @@ td {
 
 #role_list {
   display: none;
+}
+.rosForm {
+  display: block;
 }
