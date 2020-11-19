@@ -20,7 +20,7 @@ create table appointments (appt_id int(20) primary key AUTO_INCREMENT not null, 
 
 create table daily (daily_id int(20) primary key not null AUTO_INCREMENT, caregiver_id int(10) not null, foreign key(caregiver_id) REFERENCES users(id), pat_id int(10) not null, FOREIGN key (pat_id) REFERENCES users(id), care_date date, morn_med boolean, aft_med boolean, night_med boolean, breakfast boolean, lunch boolean, dinner boolean);
 
-create table roster (daily_id int(20) primary key not null AUTO_INCREMENT, care_date date not null, group_id int(1) not null, supervisor_id int(10), foreign key(supervisor_id) references users(id), doctor_id int(10),foreign key(doctor_id) references users(id), caregiver1_id int(10),foreign key(caregiver1_id) REFERENCES users(id),caregiver2_id int(10),foreign key(caregiver2_id) REFERENCES users(id),caregiver3_id int(10),foreign key(caregiver3_id) REFERENCES users(id),caregiver4_id int(10),foreign key(caregiver4_id) REFERENCES users(id));
+create table roster (daily_id int(20) primary key not null AUTO_INCREMENT, care_date date not null, supervisor_id int(10), foreign key(supervisor_id) references users(id), doctor_id int(10),foreign key(doctor_id) references users(id), caregiver1_id int(10),foreign key(caregiver1_id) REFERENCES users(id),caregiver2_id int(10),foreign key(caregiver2_id) REFERENCES users(id),caregiver3_id int(10),foreign key(caregiver3_id) REFERENCES users(id),caregiver4_id int(10),foreign key(caregiver4_id) REFERENCES users(id));
 
 create table payment_update (id int(20) PRIMARY KEY not null AUTO_INCREMENT, update_date date);
 
@@ -67,44 +67,23 @@ INSERT INTO `employees` (`user_id`) VALUES
 (9),
 (11);
 
-INSERT INTO `roster` (`care_date`,`group_id`,`supervisor_id`, `doctor_id`, `caregiver1_id`, `caregiver2_id`,`caregiver3_id`, `caregiver4_id`) VALUES
-('2020-10-01',5,1, 4, 3,10,13,14),
-('2020-10-02',5,1, 9, 3,10,13,14),
-('2020-10-03',5,1, 9, 13,10,3,14),
-('2020-10-04',5, 1, 4, 13,10,3,14),
-('2020-10-05',5, 1, 4, 13,14,3,10),
-('2020-10-06',5, 1, 9, 13,10,3,14),
-('2020-10-07',5, 1, 4, 3,10,13,14),
-('2020-10-08',5, 1, 9, 13,10,3,14),
-('2020-10-09',5, 1, 4, 14,10,3,13),
-('2020-10-10',5, 1, 9, 13,10,3,14),
-('2020-10-01',5, 2, 9, 3,10,13,14),
-('2020-10-02',5, 2, 4, 10,3,13,14),
-('2020-10-03',5, 2, 4, 13,3,10,14),
-('2020-10-04',5, 2, 9, 13,3,10,14),
-('2020-10-05',5, 2, 9, 13,14,10,10),
-('2020-10-06',5, 2, 4, 13,3,10,14),
-('2020-10-07',5, 2, 9, 10,3,13,14),
-('2020-10-08',5, 2, 4, 13,3,10,14),
-('2020-10-09',5, 2, 9, 14,3,10,13),
-('2020-10-10',5, 2, 4, 13,3,10,14),
-('2020-10-01',5, 3, 4, 3,10,13,14),
-('2020-10-02',5, 3, 9, 3,10,13,14),
-('2020-10-03',5, 3, 9, 13,10,3,14),
-('2020-10-04',5, 3, 4, 13,10,3,14),
-('2020-10-05',5, 3, 4, 13,14,3,10),
-('2020-10-06',5, 3, 9, 13,10,3,14),
-('2020-10-07',5, 3, 4, 3,10,13,14),
-('2020-10-08',5, 3, 9, 13,10,3,14),
-('2020-10-09',5, 3, 4, 14,10,3,13),
-('2020-10-10',5, 3, 9, 13,10,3,14),
-('2020-10-01',5, 4, 4, 3,10,13,14),
-('2020-10-02',5, 4, 9, 3,10,13,14),
-('2020-10-03',5, 4, 9, 13,10,3,14),
-('2020-10-04',5, 4, 4, 13,10,3,14),
-('2020-10-05',5, 4, 4, 13,14,3,10),
-('2020-10-06',5, 4, 9, 13,10,3,14),
-('2020-10-07',5, 4, 4, 3,10,13,14),
-('2020-10-08',5, 4, 9, 13,10,3,14),
-('2020-10-09',5, 4, 4, 14,10,3,13),
-('2020-10-10',5, 4, 9, 13,10,3,14);
+INSERT INTO `roster` (`care_date`,`supervisor_id`, `doctor_id`, `caregiver1_id`, `caregiver2_id`,`caregiver3_id`, `caregiver4_id`) VALUES
+('2020-10-01',5, 4, 3,10,13,14),
+('2020-10-02',5, 9, 3,10,13,14),
+('2020-10-03',5, 9, 13,10,3,14),
+('2020-10-04',5, 4, 13,10,3,14),
+('2020-10-05',5, 4, 13,14,3,10),
+('2020-10-06',5, 9, 13,10,3,14),
+('2020-10-07',5, 4, 3,10,13,14),
+('2020-10-08',5, 9, 13,10,3,14),
+('2020-10-09',5, 4, 14,10,3,13),
+('2020-10-10',5, 9, 13,10,3,14),
+('2020-10-11',5, 9, 3,10,13,14),
+('2020-10-12',5, 4, 10,3,13,14),
+('2020-10-13',5, 4, 13,3,10,14),
+('2020-10-14',5, 9, 13,3,10,14),
+('2020-10-15',5, 9, 13,14,3,10),
+('2020-10-16',5, 4, 13,3,10,14),
+('2020-10-17',5, 9, 10,3,13,14),
+('2020-10-18',5, 4, 13,3,10,14),
+('2020-10-19',5, 9, 14,3,10,13);
