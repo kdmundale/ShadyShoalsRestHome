@@ -200,23 +200,29 @@ ul {
   align-items: center;
 }
 
-#home_div {
-  display: inline-block;
-}
-
-#userStatus, #employeeList, #newRoleForm, #newRoster {
+.homeForm {
   font-size: 20px;
   margin: auto;
-  display: none;
+  display: flex;
   flex-direction: column;
   align-items: center;
   width: 80%;
   background-color: rgb(187,154,195);
 }
 
+#home_div {
+  display: inline-block;
+}
+
+#userStatus, #employeeList, #newRoleForm, #newRoster {
+  display: none;
+}
+
 #newRoster {
   flex-direction: column;
 }
+
+
 
 .homeButton {
   font-size: 14px;
@@ -245,6 +251,23 @@ td {
   style=font-size:18;
   font-weight:bold;
   padding:5px;
+}
+
+.buttonLink {
+  width: 130px;
+  font-variant: small-caps;
+  font-weight: bold;
+  font-family: 'Handlee';
+  margin: 20px 0 20px; 0;
+  text-shadow: #acd4c3 1px 0 10px;
+  background: linear-gradient(#acd4c3,#6d86c4,#acd4c3);
+  color: #493a7e;
+  font-weight: bold;
+  border-radius: 25% 10%;
+  border: 1px solid #493a7e;
+  font-size: 14px;
+  padding: 3px 30px 3px 30px;
+
 }
 
 .empEdit {

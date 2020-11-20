@@ -11,6 +11,7 @@
     }
     ?>
     <li><button class="homeButton" id="ros" type="button" name="rosterForm">Create Roster</button></li>
+    <li><a class="buttonLink" href="../views/viewRoster.php" class="homeButton">View Roster</a></li>
     <script defer src="../js/homePage.js" type="text/javascript"></script>
   </ul>
 </nav>
