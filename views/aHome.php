@@ -5,10 +5,12 @@
   session_start();
 
   echo "<h1>Welcome, ".$_SESSION['userName']."</h1>";
+
   require "../includes/ASMenu.php";
 
   echo "</div>";
   echo "</article>";
 
-  require "../includes/footer.php"
+  require "../includes/footer.php";
+
   ?>

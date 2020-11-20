@@ -95,20 +95,23 @@
         }
         echo "</select>";
         mysqli_stmt_close($stmt2);
-      echo "<button class='homeButton' type='submit' name='empSubmit'>View Employees</button></form>";
-
+      echo "<button class='homeButton' type='submit' name='empSubmit'>View Employees</button>";
+      echo "</form>";
       }
-      ?>
-      <form id="newRoster" class="homeForm" action="../db/roster.php" method="post">
+
+      echo <<< "ROSTER"
+        <form id="newRoster" class="homeForm" action="../db/roster.php" method="post">
         <h2>Create Daily Roster</h2>
-        <label class='rosForm' for="careDate">Care Date</lable>
+        <label class='rosForm' for="careDate">Care Date</label>
         <input class='rosForm' type="date" name="careDate" value="">
-        <?php
+
+        ROSTER;
+
         require "../db/db.php";
 
         function empDropdown ($positionID, $name, $display){
           require "../db/db.php";
-          $sql = "SELECT u.id, u.first_name, u.last_name, e.emp_id FROM users u LEFT JOIN  employees e on u.id = e.user_id WHERE u.position_id = ? AND u.status =1;";
+          $sql = "SELECT u.id, u.first_name, u.last_name, e.emp_id FROM users u LEFT JOIN  employees e on u.id = e.user_id WHERE u.position_id = ? AND u.status =1";
           $stmt = mysqli_stmt_init($conn);
           if (!mysqli_stmt_prepare($stmt,$sql)){
             echo "There was an error with the server 1.";
@@ -119,10 +122,10 @@
             mysqli_stmt_bind_param($stmt,"i", $positionID);
             mysqli_stmt_execute($stmt);
             $result = mysqli_stmt_get_result($stmt);
-            echo "<select class='rosForm' id='supervisor' name=".$name.">";
+            echo "<select class='rosForm' id=".$name." name=".$name.">";
             echo "<option>Select ".$display."</option>";
             while ($row = mysqli_fetch_array($result)) {
-              echo "<option value =".$row['id'].">".$row['first_name']." ".$row['last_name']." - Employee ID:".$row['emp_id']."</option>";
+              echo "<option value =".$row['id'].">Emp ID:".$row['emp_id']."   ".$row['first_name']." ".$row['last_name']."</option>";
             }
             echo "</select>";
             mysqli_stmt_close($stmt);
@@ -165,6 +168,5 @@
         $display = 'Caregiver 4';
         empDropdown($positionID, $name, $display);
 
-        ?>
-        <button class="homeButton" type="submit" name="rosSubmit">Add Roster</button>
-      </form>
+        echo "<button class='homeButton' type='submit' name='rosSubmit'>Add Roster</button></form>";
+         ?>
