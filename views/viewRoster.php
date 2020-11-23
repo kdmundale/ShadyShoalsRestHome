@@ -59,8 +59,9 @@
   }
 
   if (isset($ids)){
-    echo "<h2>Date of Care: ".$DOC."</h2>";
+    $viewDate = date("M j, Y", strtotime($DOC));
     echo "<table class='data-table'><tr class='data-heading'>";
+    echo "<thead><tr><th colspan='7'>".$viewDate."</th></tr></thead>";
     echo "<td>Supervisor</td><td>Doctor</td><td>Cargiver 1</td><td>Cargiver 2</td><td>Cargiver 3</td><td>Cargiver 4</td></tr>";
 
     while ($row = mysqli_fetch_array($result)) {

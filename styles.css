@@ -269,7 +269,11 @@ td {
   padding: 3px 30px 3px 30px;
 
 }
-
+th {
+  font-size: 24px;
+  background-color: #6d86c4;
+  font-weight: bold;
+}
 .empEdit {
   display: inline-block;
 }

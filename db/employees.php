@@ -54,9 +54,9 @@ if ((isset($_POST['empSubmit'])) && ($_SESSION['sessionRole']==1 || $_SESSION['s
   require "../includes/ASMenu.php";
 
   echo "<section id='empInfo'>";
-  echo "<h1 style='margin-top:20px;'>".$empSelect."</h1>";
-  echo '<table class="data-table">
-          <tr class="data-heading">';  //initialize table tag
+  echo "<table class='data-table'>";
+  echo "<thead><tr><th colspan='8'>".$empSelect."</th></tr></thead>";
+  echo "<tr class='data-heading'>";  //initialize table tag
   while ($property = mysqli_fetch_field($result)) {
       echo "<td>" . $property->name."</td>";  //get field name for header
       array_push($all_property, $property->name);  //save those to array

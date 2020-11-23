@@ -59,9 +59,9 @@ echo "<h1>Welcome, ".$_SESSION['userName']."</h1>";
 require "../includes/ASMenu.php";
 
 echo "<section id='usersView'>";
-echo "<h1 style='margin-top:20px;'>Users ".$pageTitle."</h1>";
-echo '<table class="data-table">
-        <tr class="data-heading">';  //initialize table tag
+echo "<table class='data-table'>";
+echo "<thead><tr><th colspan='10'>".$pageTitle."</th></tr></thead>";
+echo "<tr class='data-heading'>";  //initialize table tag
 while ($property = mysqli_fetch_field($result)) {
     echo "<td>" . $property->name . '</td>';  //get field name for header
     array_push($all_property, $property->name);  //save those to array

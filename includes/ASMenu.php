@@ -17,7 +17,6 @@
 </nav>
 <div id="home_page_content" class="homeContent">
   <div id="home_div" class="homeForm">
-    <h3>This is the home page</h3>
   </div>
   <form id="userStatus" class="homeForm" action="../db/approve.php" method="post">
     <label for="approval">Select User Status</label>
@@ -32,7 +31,8 @@
   if ($_SESSION['sessionRole']== 1) {
 
   require "../db/db.php";
-  echo "<div id='role_list'><h2>Portal Roles</h2>";
+  
+  echo "<div id='role_list'>";
   $sql3 = "SELECT * FROM role_security;";
   $stmt3 = mysqli_stmt_init($conn);
   if (!mysqli_stmt_prepare($stmt3,$sql3)){
@@ -43,7 +43,9 @@
   } else {
     mysqli_stmt_execute($stmt3);
     $result3 = mysqli_stmt_get_result($stmt3);
-    echo "<table class='data-table'><tr class='data-heading'>";
+    echo "<table class='data-table'>";
+    echo "<thead><tr><th colspan='3'>Current Roles</th></tr></thead>";
+    echo "<tr class='data-heading'>";
     echo "<td>position id</td><td>role     </td><td>security level</td></tr>";
     while ($row3 = mysqli_fetch_array($result3)) {
       echo '<tr class="table-data">';
