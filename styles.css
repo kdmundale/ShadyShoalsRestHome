@@ -20,10 +20,18 @@ header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: flex-start;
   width: 100%;
   background: linear-gradient(#acd4c3,#5f70bd,#acd4c3);
   height: 180px;
   /* border-bottom: 2px solid #493a7e; */
+}
+
+.header-box {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
 }
 
 footer {
@@ -43,6 +51,8 @@ footer {
 }
 
 .shadyLogo {
+  position: fixed;
+  top: 0px; left: 0px;
   font-variant: small-caps;
   font-family: 'Gloria Hallelujah';
   text-shadow: #493a7e 1px 0 10px;
@@ -78,6 +88,37 @@ h1 {
 
 p {
   text-align: center;
+}
+
+.nav-bar {
+  position: fixed;
+  top: 110px; left:0px;
+  background: none;
+  border: none;
+  display: flex;
+  list-style-type: none;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-around;
+  margin: 20px auto;
+}
+
+.nav-link {
+  width: 130px;
+  font-variant: small-caps;
+  font-weight: bolder;
+  font-family: 'Handlee';
+  text-decoration: none;
+  margin: 20px 0 20px 0;
+  text-shadow: #acd4c3 1px 0 10px;
+  background: linear-gradient(#acd4c3,#6d86c4,#acd4c3);
+  color: #493a7e;
+  font-weight: bold;
+  border-radius: 25% 10%;
+  box-shadow: 0px 0px 15px 5px #5a67b4;
+  font-size: 14px;
+  padding: 5px 30px 5px 30px;
+
 }
 
 .register, .login {
@@ -202,11 +243,20 @@ ul {
 
 .homeForm {
   font-size: 20px;
-  margin: auto;
+  margin: 20px auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 80%;
+  background-color: rgb(187,154,195);
+}
+.homeForm2 {
+  font-size: 20px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 60%;
   background-color: rgb(187,154,195);
 }
 
@@ -233,7 +283,7 @@ ul {
 .data-table {
   width: 100%;
   padding: 5px;
-  margin: 10px;
+  margin: 20px auto;
   background-color: rgb(187,154,195);
 }
 
@@ -258,7 +308,7 @@ td {
   font-variant: small-caps;
   font-weight: bold;
   font-family: 'Handlee';
-  margin: 20px 0 20px; 0;
+  margin: 20px 0 20px 0;
   text-shadow: #acd4c3 1px 0 10px;
   background: linear-gradient(#acd4c3,#6d86c4,#acd4c3);
   color: #493a7e;
@@ -267,13 +317,13 @@ td {
   border: 1px solid #493a7e;
   font-size: 14px;
   padding: 3px 30px 3px 30px;
-
 }
 th {
   font-size: 24px;
   background-color: #6d86c4;
   font-weight: bold;
 }
+
 .empEdit {
   display: inline-block;
 }

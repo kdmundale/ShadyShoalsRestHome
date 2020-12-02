@@ -2,7 +2,7 @@
   require 'db.php';
   require "../includes/head.php";
   require "../includes/header.php";
-  session_start();
+  
 if ((isset($_POST['submit'])) && ($_SESSION['sessionRole']==1 || $_SESSION['sessionRole']==2)) {
 
   $approval = $_POST['approval'];

@@ -2,8 +2,6 @@
   require 'db.php';
   require "../includes/head.php";
   require "../includes/header.php";
-  session_start();
-
 
 if ((isset($_POST['empSubmit'])) && ($_SESSION['sessionRole']==1 || $_SESSION['sessionRole']==2)) {
 

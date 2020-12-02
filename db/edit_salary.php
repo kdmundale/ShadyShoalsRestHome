@@ -2,7 +2,6 @@
 require "db.php";
 require "../includes/head.php";
 require "../includes/header.php";
-session_start();
 
 if ((isset($_POST["salSubmit"])) && ($_SESSION['sessionRole']== 1)) {
 

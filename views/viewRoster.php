@@ -2,11 +2,10 @@
   require "../includes/head.php";
   require "../includes/header.php";
   require "../db/db.php";
-  session_start();
 
   if (isset($_POST['editRos'])) {
 
-    $date_id = $_POST['date_id'];
+    $date_id = $_POST['careDate'];
     $super= $_POST['supervisor'];
     $doctor = $_POST['doctor'];
     $care1 = $_POST['care1'];
@@ -71,7 +70,7 @@
   echo "<h1>Welcome, ".$_SESSION['userName']."</h1>";
 
   echo <<< "VIEW"
-  <form class="homeForm" action="" method="post">
+  <form class="homeForm2" action="" method="post">
     <label for="careDate">Date of Care</label>
     <input type="date" name="careDate">
     <button class="homeButton" type="submit" name="careSubmit">View Date</button>
@@ -123,7 +122,7 @@ if (($future > $now) && (($_SESSION['sessionRole']==1)||($_SESSION['sessionRole'
 echo <<< "FORM"
 <form class="homeForm" action="" method="post">
 <h2>Edit Daily Roster</h2>
-<input class='rosForm' type="hidden" name="date_id" value="$daily_id">
+<input class='rosForm' type="hidden" name="careDate" value="$daily_id">
 
 FORM;
 
