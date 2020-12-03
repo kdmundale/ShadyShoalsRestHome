@@ -1,9 +1,12 @@
-<a href="../db/logout.php">Logout</a>
 <article class="homeMain">
 <nav>
   <ul>
     <li><button class="homeButton" id="home" type="button" name="home">welcome</button></li>
-    <li><button class="homeButton" id="reg" type="button" name="registratin">Registration</button></li>
+    <?php
+    if($_SESSION['sessionRole']==1){
+      echo "<li><button class='homeButton' id='reg' type='button' name='registration'>Registration</button></li>";
+    }
+     ?>
     <li><button class="homeButton" id="pat_reg" type="button" name="pat_registratin">Patient Registration</button></li>
     <li><button class="homeButton" id="emp" type="button" name="employee">Employee Information</button></li>
     <?php
@@ -13,12 +16,76 @@
     ?>
     <li><button class="homeButton" id="ros" type="button" name="rosterForm">Create Roster</button></li>
     <li><a class="buttonLink" href="../views/viewRoster.php" class="homeButton">View Roster</a></li>
+    <li><a class="buttonLink" href="../db/patients.php" class="homeButton">Patient Search</a></li>
 
     <script defer src="../js/homePage.js" type="text/javascript"></script>
   </ul>
 </nav>
 <div id="home_page_content" class="homeContent">
   <div id="home_div" class="homeForm">
+
+    <?php
+    if ($_SESSION['sessionRole']== 1) {
+
+    require "../db/db.php";
+    $sql5 = "SELECT COUNT(*)
+            FROM users
+            WHERE status IS NULL;";
+    $stmt5 = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt5,$sql5)){
+      echo "There was an error with the server 1.";
+      echo "<br/>";
+      echo "<a href='../index.php'>Go back</a>";
+      exit();
+    } else {
+      mysqli_stmt_execute($stmt5);
+      $result5 = mysqli_stmt_get_result($stmt5);
+      while ($row5 = mysqli_fetch_array($result5)) {
+        echo "<h3>".$row5[0]." users awaiting approval</h3>";
+      }
+      mysqli_stmt_close($stmt5);
+    }
+    $sql5 = "SELECT COUNT(*)
+            FROM employees e
+            LEFT JOIN users u
+            ON u.id=e.user_id
+            WHERE u.status=1
+            AND e.salary IS NULL;";
+    $stmt5 = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt5,$sql5)){
+      echo "There was an error with the server 2.";
+      echo "<br/>";
+      exit();
+    } else {
+      mysqli_stmt_execute($stmt5);
+      $result5 = mysqli_stmt_get_result($stmt5);
+      while ($row5 = mysqli_fetch_array($result5)) {
+        echo "<h3>".$row5[0]." employess salaries for review</h3>";
+      }
+      mysqli_stmt_close($stmt5);
+    }
+  }
+
+    $sql5 = "SELECT COUNT(*)
+            FROM patients p
+            LEFT JOIN users u
+            ON u.id=p.user_id
+            WHERE u.status=1
+            AND p.admission IS NULL;";
+    $stmt5 = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt5,$sql5)){
+      echo "There was an error with the server 2.";
+      echo "<br/>";
+      exit();
+    } else {
+      mysqli_stmt_execute($stmt5);
+      $result5 = mysqli_stmt_get_result($stmt5);
+      while ($row5 = mysqli_fetch_array($result5)) {
+        echo "<h3>".$row5[0]." patients pending admission</h3>";
+      }
+      mysqli_stmt_close($stmt5);
+    }
+     ?>
   </div>
   <form id="userStatus" class="homeForm" action="../db/approve.php" method="post">
     <h3>View Users Awaiting Approval / Approved / Deactivated</h3>
@@ -30,18 +97,17 @@
     </select>
     <button class="homeButton" type="submit" name="submit">View Users</button>
   </form>
-  <form id="pat_reg_form" class="homeForm" action="" method="post">
+  <form id="pat_reg_form" class="homeForm" action="../views/aHome.php" method="post">
     <?php
     if (($_SESSION['sessionRole']== 1) || ($_SESSION['sessionRole']== 2) ){
 
     require "../db/db.php";
-
-    echo "<div id='role_list'>";
     $sql4 = "SELECT p.pat_id , u.first_name, u.last_name
               FROM patients p
               LEFT JOIN users u
               ON u.id= p.user_id
-              WHERE p.admission IS NULL;";
+              WHERE p.admission IS NULL
+              AND u.status =1;";
     $stmt4 = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt4,$sql4)){
       echo "There was an error with the server 1.";
@@ -52,20 +118,34 @@
       mysqli_stmt_execute($stmt4);
       $result4 = mysqli_stmt_get_result($stmt4);
       echo "<table class='data-table'>";
-      echo "<thead><tr><th colspan='3'>Patients Awaiting Approval</th></tr></thead>";
+      echo "<thead><tr><th colspan='3'>Admit Patients</th></tr></thead>";
       echo "<tr class='data-heading'>";
       echo "<td>patient id</td><td>first name</td><td>last name</td></tr>";
       while ($row4 = mysqli_fetch_array($result4)) {
         echo '<tr class="table-data">';
         echo "<td>".$row4['pat_id']."</td><td>".$row4['first_name']."</td><td>".$row4['last_name']."</td></tr>";
       }
-      echo "</table></div>";
+      echo "</table>";
       mysqli_stmt_close($stmt4);
     }
-
-
     }
     ?>
+    <label class="form-label" for="pat_id">Patient ID</label>
+    <input class="form-input" type="number" name="pat_id" value="">
+    <label class="form-label" for="lName">Patient Last Name</label>
+    <input class="form-input" type="text" name="lName" placeholder="Last Name">
+    <label class="form-label" for="group">Group</label>
+    <select class="form-input" class="" name="group">
+      <option value="">Group #</option>
+      <option value=1>1</option>
+      <option value=2>2</option>
+      <option value=3>3</option>
+      <option value=4>4</option>
+
+    </select>
+    <label class="form-label" for="a_date">Admission Date</label>
+    <input class="form-input" type="date" name="a_date" value="">
+    <button class="other" type="submit" name="pat_reg_submit">Admit Patient</button>
   </form>
   <?php
   if ($_SESSION['sessionRole']== 1) {

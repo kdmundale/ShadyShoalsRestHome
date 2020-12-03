@@ -2,7 +2,7 @@
   require 'db.php';
   require "../includes/head.php";
   require "../includes/header.php";
-  
+
 if ((isset($_POST['submit'])) && ($_SESSION['sessionRole']==1 || $_SESSION['sessionRole']==2)) {
 
   $approval = $_POST['approval'];
@@ -79,7 +79,7 @@ while ($row = mysqli_fetch_array($result)) {
     echo "</tr>";
 }
 echo "</table>";
-echo "<button style='font-size: 14px;font-weight:bold;padding: 3px;width: 130px;background: linear-gradient(#e95e34,#e98f34,#e95e34);' type='submit' name='submit'>change</button></form>";
+echo "<button class='other' type='submit' name='submit'>change</button></form>";
 echo "</section>";
 }
 echo <<< "NEW2"

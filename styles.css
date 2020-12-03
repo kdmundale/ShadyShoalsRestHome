@@ -28,9 +28,13 @@ header {
 }
 
 .header-box {
-  margin: auto;
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-around;
   text-align: left;
 }
 
@@ -90,26 +94,22 @@ p {
   text-align: center;
 }
 
-.nav-bar {
+.nav-bar-ul {
   position: fixed;
-  top: 110px; left:0px;
+  top: 130px;left: 10px;
   background: none;
-  border: none;
   display: flex;
   list-style-type: none;
   flex-direction: row;
-  align-items: flex-end;
-  justify-content: space-around;
-  margin: 20px auto;
+  align-items: center;
+  justify-content: center;
 }
 
 .nav-link {
-  width: 130px;
   font-variant: small-caps;
   font-weight: bolder;
   font-family: 'Handlee';
   text-decoration: none;
-  margin: 20px 0 20px 0;
   text-shadow: #acd4c3 1px 0 10px;
   background: linear-gradient(#acd4c3,#6d86c4,#acd4c3);
   color: #493a7e;
@@ -117,8 +117,8 @@ p {
   border-radius: 25% 10%;
   box-shadow: 0px 0px 15px 5px #5a67b4;
   font-size: 14px;
-  padding: 5px 30px 5px 30px;
-
+  padding: 5px 10px 5px 10px;
+  margin: 5px;
 }
 
 .register, .login {
@@ -132,12 +132,23 @@ p {
   box-shadow: 0px 0px 5px 5px #5a67b4;
 }
 
+.form-input {
+  margin: auto;
+  text-align: center;
+  display: block;
+}
+
+.form-label {
+  text-align: center;
+  display: block;
+}
+
 .loginInput, .regInput, .regSelect {
   height:20px;
   text-align: center;
   margin: 15px;
   width: 250px;
-  box-shadow: 0px 0px 15px 5px #5a67b4;
+  box-shadow: 0px 0px 10px 5px #5a67b4;
   border: 2px solid #5a67b4;
 }
 
@@ -176,8 +187,8 @@ a:hover {
   text-shadow: #eb5f30 1px 0 10px;
 }
 
-button {
-  font-size: 20px;
+button, .buttonLink {
+  font-size: 14px;
   font-variant: small-caps;
   font-weight: bold;
   font-family: 'Handlee';
@@ -197,6 +208,14 @@ button:hover {
   border: 1px solid #acd4c3;
 }
 
+.other {
+  font-size: 14px;
+  font-weight:bold;
+  padding: 3px;
+  width: 130px;
+  background: linear-gradient(#e95e34,#e98f34,#e95e34);
+}
+
 .homeP {
   margin:30px;
 }
@@ -211,9 +230,16 @@ button:hover {
   width: 100%;
 }
 
+.patient_search {
+  text-align: center;
+  display: block;
+  width: 100%;
+  margin-top: 200px;
+}
+
 nav {
   font-size: 20;
-  width: 15vw;
+  width: 16vw;
   background-color: #acd4c3;
   border: 1px solid #493a7e;
   display: flex;
@@ -232,9 +258,12 @@ ul {
   flex-direction: column;
   text-decoration: none;
   list-style-type: none;
+  margin: 0 auto;
 }
 
 .homeContent {
+  text-align: center;
+  font-family: 'Harmattan';
   width: 80vw;
   display: flex;
   flex-direction: column;
@@ -264,7 +293,7 @@ ul {
   display: inline-block;
 }
 
-#userStatus, #employeeList, #newRoleForm, #newRoster {
+#userStatus, #employeeList, #newRoleForm, #newRoster, #pat_reg_form, #usersView{
   display: none;
 }
 
@@ -272,12 +301,10 @@ ul {
   flex-direction: column;
 }
 
-
-
 .homeButton {
   font-size: 14px;
   padding: 3px;
-  width: 130px;
+  width: 100px;
 }
 
 .data-table {
@@ -304,20 +331,14 @@ td {
 }
 
 .buttonLink {
-  width: 130px;
-  font-variant: small-caps;
-  font-weight: bold;
-  font-family: 'Handlee';
-  margin: 20px 0 20px 0;
-  text-shadow: #acd4c3 1px 0 10px;
-  background: linear-gradient(#acd4c3,#6d86c4,#acd4c3);
-  color: #493a7e;
-  font-weight: bold;
-  border-radius: 25% 10%;
-  border: 1px solid #493a7e;
-  font-size: 14px;
-  padding: 3px 30px 3px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 10px auto;
+  padding: 3px 15px;
 }
+
 th {
   font-size: 24px;
   background-color: #6d86c4;
