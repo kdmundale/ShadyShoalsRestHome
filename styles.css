@@ -289,6 +289,14 @@ ul {
   background-color: rgb(187,154,195);
 }
 
+.t1, .td1 {
+
+}
+
+.no_i {
+  width: 30px;
+}
+
 #home_div {
   display: inline-block;
 }
@@ -314,14 +322,43 @@ ul {
   background-color: rgb(187,154,195);
 }
 
-.data-heading {
+.data-heading, .data-heading2 {
   font-variant: small-caps;
   font-weight: bold;
   font-size: 22px;
 }
 
-.table-data {
+.data-heading2{
+  padding: 5px 10px;
+  width: 12%;
+}
+
+.ugh {
+  border: 2px solid red;
+}
+
+.table-data,.table-data2 {
   background-color: #f5ddc5;
+}
+
+.table-data2 {
+  padding: 5px 10px;
+  width: 13.3%;
+}
+
+#all_pat_table{
+
+}
+
+.pat_search_thead, .pat_search_tbody{
+  display: block;
+  border:1px solid white;
+}
+
+.pat_search_tbody {
+    height: 200px;       /* Just for the demo          */
+    overflow-y: auto;    /* Trigger vertical scroll    */
+    overflow-x: hidden;  /* Hide the horizontal scroll */
 }
 
 td {
