@@ -122,28 +122,41 @@ function viewRosterForm () {
   }
 };
 
-let ros = document.getElementById('ros');
-let reg = document.getElementById("reg");
-let emp = document.getElementById("emp");
+if (typeof document.getElementById('ros') !== 'undefined' && document.getElementById('ros') != null) {
+  let ros = document.getElementById('ros');
+}
+
+if (typeof document.getElementById("reg") !== 'undefined' && document.getElementById("reg") != null) {
+  let reg = document.getElementById("reg");
+}
+
+if (typeof document.getElementById("emp") !== 'undefined' && document.getElementById("emp") != null) {
+  let emp = document.getElementById("emp");
+}
+
+if (typeof document.getElementById("newRole") !== 'undefined' && document.getElementById("newRole") != null) {
+  let rewRole = document.getElementById("newRole");
+
+}
+
 let home = document.getElementById("home");
-let rewRole = document.getElementById("newRole");
 let pat_reg = document.getElementById("pat_reg");
 
-if (typeof ros !== 'undefined') {
+if (typeof ros !== 'undefined' && ros != null) {
   ros.addEventListener("click", viewRosterForm);
 }
-if (typeof reg !== 'undefined') {
+if (typeof reg !== 'undefined' && reg != null) {
   reg.addEventListener("click", getApproval);
 }
-if (typeof emp !== 'undefined') {
+if (typeof emp !== 'undefined' && emp != null) {
   emp.addEventListener("click", getEmployees);
 }
-if (typeof home !== 'undefined') {
+if (typeof home !== 'undefined' && home != null) {
   home.addEventListener("click", viewHome);
 }
-if (typeof newRole !== 'undefined') {
+if (typeof newRole !== 'undefined' && newRole != null) {
   newRole.addEventListener("click", viewNewRole);
 }
-if (typeof pat_reg !== 'undefined') {
+if (typeof pat_reg !== 'undefined' && pat_reg != null) {
   pat_reg.addEventListener("click", view_pat_reg);
 }
