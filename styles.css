@@ -202,6 +202,11 @@ button, .buttonLink {
   border: 1px solid #493a7e;
 }
 
+.b2{
+  padding: 5px;
+  margin: 0;
+}
+
 button:hover {
   background: linear-gradient(#6d86c4,#acd4c3,#6d86c4);
   box-shadow: 0px 0px 10px 5px #eb5f30;
@@ -346,9 +351,30 @@ ul {
   width: 13.3%;
 }
 
-#all_pat_table{
-
+#pat-t-d{
+  width:20%;
 }
+
+#pat_table, #pat_table_head, #pat_table_body{
+  display:block;
+}
+
+#pat_table_head{
+  padding: 5px 20px;
+}
+
+#pat_table{
+  text-align: center;
+  padding: 10px;
+  background-color: rgb(187,154,195);
+}
+
+#pat_table_body {
+  height: 200px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
 
 .pat_search_thead, .pat_search_tbody{
   display: block;
