@@ -30,9 +30,13 @@ if(isset($_POST['new_record'])) {
   $fName = $_POST['fName'];
   $lName = $_POST['lName'];
   $dob = $_POST['dob'];
-
+  if (isset($_POST['seen'])){
+    $seen = $_POST['seen'];
+  } else {
+    $seen = 0;
+  }
   $sql = "UPDATE appointments
-          SET comments = ?, morn_med = ?, aft_med = ?, night_med = ?
+          SET comments = ?, morn_med = ?, aft_med = ?, night_med = ?, seen = ?
           WHERE appt_id = ? ";
   $stmt = mysqli_stmt_init($conn);
   if (!mysqli_stmt_prepare($stmt,$sql)){
@@ -40,7 +44,7 @@ if(isset($_POST['new_record'])) {
     echo "<br/>";
     exit();
   } else {
-    mysqli_stmt_bind_param($stmt, "ssssi", $comment, $morn_med, $aft_med, $night_med, $apt_id);
+    mysqli_stmt_bind_param($stmt, "ssssii", $comment, $morn_med, $aft_med, $night_med, $seen, $apt_id);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
   }
@@ -157,20 +161,39 @@ if ((isset($_POST['pat_submit'])) && ($_SESSION['sessionRole']==3)){
 
       echo <<< "NEW"
         <form class='homeForm2' action='' method='post'>
-          <input type='hidden' name='apt_id' value="$apt_id">
-          <input type='hidden' name='pat_id' value="$pat_id">
-          <input type='hidden' name='fName' value="$fName">
-          <input type='hidden' name='lName' value="$lName">
-          <input type='hidden' name='dob' value="$dob">
-          <label for='comment'>comment</label>
-            <input type='text' name='comment' placeholder='enter comments'>
-          <label for='morn_med'>morning med</label>
-            <input type='text' name='morn_med' placeholder='morning medication'>
-          <label for='aft_med'>afternoon med</label>
-            <input type='text' name='aft_med' placeholder='aftternoon medication'>
-          <label for='night_med'>night med</label>
-            <input type='text' name='night_med' placeholder='night medication'>
-          <input type='submit' name='new_record' value='enter appointment'>
+          <table>
+            <tr><th colspan='2'>Appointment Notes</th></tr>
+          <tr><td><label for='seen'>Was patient seen?</label></td><td><input type='checkbox' name='seen' value=1></td></tr>
+          <tr>
+            <td>
+              <input type='hidden' name='apt_id' value="$apt_id">
+              <input type='hidden' name='pat_id' value="$pat_id">
+              <input type='hidden' name='fName' value="$fName">
+              <input type='hidden' name='lName' value="$lName">
+              <input type='hidden' name='dob' value="$dob">
+              <label for='comment'>comment</label>
+            </td><td>
+              <input type='text' name='comment' placeholder='enter comments'>
+            </td></tr>
+            <tr><td>
+              <label for='morn_med'>morning med</label>
+            </td><td>
+              <input type='text' name='morn_med' placeholder='morning medication'>
+            </td></tr>
+            <tr><td>
+              <label for='aft_med'>afternoon med</label>
+            </td><td>
+              <input type='text' name='aft_med' placeholder='aftternoon medication'>
+            </td></tr>
+            <tr><td>
+              <label for='night_med'>night med</label>
+            </td><td>
+              <input type='text' name='night_med' placeholder='night medication'>
+            </td></tr>
+            <tr><td colspan='2'>
+              <input type='submit' name='new_record' value='enter appointment'>
+            </td></tr>
+          </table>
         </form>
       NEW;
 
