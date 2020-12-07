@@ -359,6 +359,15 @@ ul {
   display:block;
 }
 
+#pat_table_head {
+  display: flex;
+  flex-direction: row;
+}
+
+.apt_date {
+  margin: 0 10px 0 10px;
+}
+
 #pat_table_head{
   padding: 5px 20px;
 }
