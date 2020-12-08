@@ -17,6 +17,7 @@
     <li><button class="homeButton" id="ros" type="button" name="rosterForm">Create Roster</button></li>
     <li><a class="buttonLink" href="../views/viewRoster.php" class="homeButton">View Roster</a></li>
     <li><a class="buttonLink" href="../db/patients.php" class="homeButton">Patient Search</a></li>
+    <li><button class="homeButton" id="doc_apt" type="button" name="doctor_appt">Create Doc Appointment</button></li>
 
     <script defer src="../js/homePage.js" type="text/javascript"></script>
   </ul>
@@ -292,4 +293,73 @@
         empDropdown($positionID, $name, $display);
 
         echo "<button class='homeButton' type='submit' name='rosSubmit'>Add Roster</button></form>";
-         ?>
+
+  if (isset($_POST['pat_id_doc'])){
+
+    $pat_id = (int)$_POST['pat_id'];
+
+    $sql= "SELECT p.pat_id, u.first_name, u.last_name
+            FROM users u
+            LEFT JOIN patients p
+            ON u.id=p.user_id
+            WHERE p.pat_id = ?";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt,$sql)){
+      echo "There was an error with the server 1.";
+      echo "<br/>";
+      exit();
+    } else {
+      mysqli_stmt_bind_param($stmt, "i", $pat_id);
+      mysqli_stmt_execute($stmt);
+      $result = mysqli_stmt_get_result($stmt);
+      while ($row = mysqli_fetch_array($result)) {
+        $full_name = $row['first_name']." ".$row['last_name'];
+        $pat_appt_id = $row['pat_id'];
+      }
+      mysqli_stmt_close($stmt);
+    }
+  }
+  ?>
+    <form id="appt_pat_id" class="homeForm" action="" method="post">
+      <label for="pat_id">Patient ID</label>
+      <input type="number" name="pat_id" value="">
+      <input type="submit" name="pat_id_doc" value="Get Patient">
+    </form>
+    <form id="create_appt" class="homeForm" action="" method="post">
+  <?php
+      if(isset($full_name)) {
+        echo "<h2>".$full_name."</h2>";
+      }
+      if(isset($_POST['new_appt'])){
+
+        $doc_id = (int)$_POST['doctor'];
+        $appt_date = $_POST['appt_date'];
+        $pat_appt_id = (int)$_POST['pat_id'];
+
+        $sql = "INSERT INTO appointments (pat_id, doctor_id, appt_date)
+                VALUES (?,?,?)";
+        $stmt = mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt,$sql)){
+          echo "There was an error with the server 6.";
+          echo "<br/>";
+          exit();
+        } else {
+          mysqli_stmt_bind_param($stmt, "iis", $pat_appt_id, $doc_id, $appt_date);
+          mysqli_stmt_execute($stmt);
+          mysqli_stmt_close($stmt);
+          echo "Appointment has been created.";
+        }
+      }
+  ?>
+    <label for="appt_date">Appointment Date</label>
+    <input type="date" name="appt_date" value="">
+    <?php
+    echo "<input type='hidden' name='pat_id' value=".$pat_appt_id.">";
+    echo "<label for='doctor'>Doctor</label>";
+    $positionID = 3;
+    $name = 'doctor';
+    $display = "Doctor";
+    empDropdown($positionID, $name, $display);
+   ?>
+    <input type="submit" name="new_appt" value="Create Appointment">
+    </form>

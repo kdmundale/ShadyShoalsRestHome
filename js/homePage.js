@@ -8,9 +8,11 @@ let role_list = document.getElementById("role_list");
 let roster_view = document.getElementById("viewRoster");
 let new_roster = document.getElementById('newRoster');
 let pat_reg_form = document.getElementById("pat_reg_form");
+let appt_pat_id = document.getElementById("appt_pat_id");
+let create_appt = document.getElementById("create_appt");
 
 const page_elms = [emp_list,home_div,role_list,roster_view,new_roster,
-  pat_reg_form, user_status, new_role, empInfo, usersView];
+  pat_reg_form, user_status, new_role, empInfo, usersView, appt_pat_id, create_appt];
 
 const len = page_elms.length;
 
@@ -38,13 +40,10 @@ function show_elm_block (elm) {
 
 function show_elm_flex (elm) {
   if(typeof(elm) != 'undefined' && elm != null){
-  console.log("BANG");
   if (elm.style.display == "none"){
     elm.style.display = "flex";
-    console.log("BANG BANG");
   } else {
     elm.style.display = "flex";
-    console.log("BANG BANG BANG");
   }
 }
 };
@@ -122,6 +121,20 @@ function viewRosterForm () {
   }
 };
 
+function viewCreateAppt () {
+  for (i=0; i < len; i++){
+    if (page_elms[i] == appt_pat_id){
+      console.log("BANG");
+      show_elm_block(appt_pat_id);
+    } else if (page_elms[i] == create_appt){
+      console.log("BANG BANG");
+      show_elm_block(create_appt);
+    } else {
+      hide_elm(page_elms[i]);
+    }
+  }
+};
+
 if (typeof document.getElementById('ros') !== 'undefined' && document.getElementById('ros') != null) {
   let ros = document.getElementById('ros');
 }
@@ -141,6 +154,7 @@ if (typeof document.getElementById("newRole") !== 'undefined' && document.getEle
 
 let home = document.getElementById("home");
 let pat_reg = document.getElementById("pat_reg");
+let doc_apt = document.getElementById('doc_apt');
 
 if (typeof ros !== 'undefined' && ros != null) {
   ros.addEventListener("click", viewRosterForm);
@@ -160,3 +174,5 @@ if (typeof newRole !== 'undefined' && newRole != null) {
 if (typeof pat_reg !== 'undefined' && pat_reg != null) {
   pat_reg.addEventListener("click", view_pat_reg);
 }
+
+doc_apt.addEventListener("click", viewCreateAppt);
