@@ -306,7 +306,8 @@ ul {
   display: inline-block;
 }
 
-#userStatus, #employeeList, #newRoleForm, #newRoster, #pat_reg_form, #usersView{
+#userStatus, #employeeList, #newRoleForm, #newRoster, #pat_reg_form, #usersView,
+#appt_pat_id, #create_appt{
   display: none;
 }
 
