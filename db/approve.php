@@ -15,15 +15,13 @@ if ((isset($_POST['submit'])) && ($_SESSION['sessionRole']==1 || $_SESSION['sess
     $pageTitle = "Deactivated";
   }
 
-  if(mysqli_connect_errno()){
-    die("connection failed: "
-        . mysqli_connect_error()
-        . " (" . mysqli_connect_errno()
-        . ")");
-}
 //get results from database
 if ($approval==1 || $approval==0){
-$sql = "SELECT u.id, r.sec_level, r.position, u.first_name, u.last_name, u.email, u.phone, u.dob, u.status FROM users u, role_security r WHERE u.position_id = r.position_id AND status = ?";
+$sql = "SELECT u.id, r.sec_level, r.position, u.first_name, u.last_name, u.email, u.phone, u.dob, u.status
+        FROM users u
+        LEFT JOIN role_security r
+        ON u.position_id = r.position_id
+        WHERE status = ?";
 $all_property = array();  //declare an array for saving property
 $stmt = mysqli_stmt_init($conn);
 if (!mysqli_stmt_prepare($stmt,$sql)){
@@ -58,7 +56,7 @@ if (!mysqli_stmt_prepare($stmt,$sql)){
 echo "<h1>Welcome, ".$_SESSION['userName']."</h1>";
 require "../includes/ASMenu.php";
 
-echo "<section id='usersView'>";
+echo "<section id='usersView' style='display:block;'>";
 echo "<table class='data-table'>";
 echo "<thead><tr><th colspan='10'>".$pageTitle."</th></tr></thead>";
 echo "<tr class='data-heading'>";  //initialize table tag
