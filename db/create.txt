@@ -18,7 +18,7 @@ create table patients (pat_id int(10) primary key not null AUTO_INCREMENT, user_
 
 create table appointments (appt_id int(20) primary key AUTO_INCREMENT not null, doctor_id int(10) not null, foreign key(doctor_id) references users(id), pat_id int(10) not null, foreign key (pat_id) references users(id), appt_date date not null, morn_med varchar(200), aft_med varchar(200), night_med varchar(200), comments varchar(255), seen boolean);
 
-create table daily (daily_id int(20) primary key not null AUTO_INCREMENT, caregiver_id int(10) not null, foreign key(caregiver_id) REFERENCES users(id), pat_id int(10) not null, FOREIGN key (pat_id) REFERENCES users(id), care_date date, morn_med boolean, aft_med boolean, night_med boolean, breakfast boolean, lunch boolean, dinner boolean);
+create table daily (daily_id int(20) primary key not null AUTO_INCREMENT, caregiver_id int(10) not null, foreign key(caregiver_id) REFERENCES users(id), pat_id int(10) not null, FOREIGN key (pat_id) REFERENCES users(id), care_date date, UNIQUE KEY (pat_id, care_date), morn_med boolean, aft_med boolean, night_med boolean, breakfast boolean, lunch boolean, dinner boolean);
 
 create table roster (daily_id int(20) primary key not null AUTO_INCREMENT, care_date date not null, supervisor_id int(10), foreign key(supervisor_id) references users(id), doctor_id int(10),foreign key(doctor_id) references users(id), caregiver1_id int(10),foreign key(caregiver1_id) REFERENCES users(id),caregiver2_id int(10),foreign key(caregiver2_id) REFERENCES users(id),caregiver3_id int(10),foreign key(caregiver3_id) REFERENCES users(id),caregiver4_id int(10),foreign key(caregiver4_id) REFERENCES users(id));
 
@@ -107,12 +107,13 @@ INSERT INTO `roster` (`care_date`,`supervisor_id`, `doctor_id`, `caregiver1_id`,
 ('2020-10-16',5, 4, 13,3,10,14),
 ('2020-10-17',5, 9, 10,3,13,14),
 ('2020-10-18',5, 4, 13,3,10,14),
-('2020-10-19',5, 9, 14,3,10,13);
+('2020-10-19',5, 9, 14,3,10,13),
+('2020-12-09',5,4,3,10,13,14);
 
 INSERT INTO `appointments` (`doctor_id`, `pat_id`, `appt_date`,`morn_med`, `aft_med`, `night_med`, `comments`, `seen`) VALUES
-(4, 1, '2020-11-04', 'Claratin 500mg', 'Ibuprophen 800mg', 'Seroquel 1000mg', 'Arthritis in hands keeps them up at night',1),
-(4, 2, '2020-11-04', 'Tylenol 500mg', 'Omerperazole 40mg', 'Trazodone 50mg', 'Bad heartburn',1),
-(4, 3, '2020-11-04', '','','','No complaints',1),
+(4, 7, '2020-10-01', 'Claratin 500mg', 'Ibuprophen 800mg', 'Seroquel 1000mg', 'Arthritis in hands keeps them up at night',1),
+(4, 8, '2020-10-01', 'Tylenol 500mg', 'Omerperazole 40mg', 'Trazodone 50mg', 'Bad heartburn',1),
+(4, 10, '2020-10-01', '','','','No complaints',1),
 (9, 1, '2020-11-18', 'Vitamin C', 'Blood Pressure Pill', 'Melatonin 10mg', 'No complaints, a little trouble staying asleep.',1),
 (9, 2, '2020-11-18', 'Multivitamin', '', 'Seroquel 1000mg', 'Arthritis much better',1),
 (9, 3, '2020-11-18', 'Ibuprophen 800mg', 'Aspirin 100mg', 'Hydrocodone 100mg', 'Sprained back, pulled muscle',1),
@@ -121,7 +122,7 @@ INSERT INTO `appointments` (`doctor_id`, `pat_id`, `appt_date`,`morn_med`, `aft_
 (4, 3, '2020-12-04', '','','','No complaints',1),
 (9, 4, '2020-12-04', 'Vitamin C', 'Blood Pressure Pill', 'Melatonin 10mg', 'No complaints, a little trouble staying asleep.',1),
 (9, 8, '2020-12-04', 'Multivitamin', '', 'Seroquel 1000mg', 'Arthritis much better',1),
-(4, 4, '2020-11-04', 'Claratin 500mg', 'Ibuprophen 800mg', 'Seroquel 1000mg', 'Arthritis in hands keeps them up at night',1),
+(4, 4, '2020-10-01', 'Claratin 500mg', 'Ibuprophen 800mg', 'Seroquel 1000mg', 'Arthritis in hands keeps them up at night',1),
 (4, 5, '2020-11-04', 'Tylenol 500mg', 'Omerperazole 40mg', 'Trazodone 50mg', 'Bad heartburn',1),
 (4, 6, '2020-11-04', '','','','',0),
 (9, 7, '2020-11-18', 'Vitamin C', 'Blood Pressure Pill', 'Melatonin 10mg', 'No complaints, a little trouble staying asleep.',1),
@@ -144,3 +145,20 @@ INSERT INTO `appointments` (`doctor_id`, `pat_id`, `appt_date`,`morn_med`, `aft_
 (9, 10, '2020-12-20','','','','',NULL),
 (9, 11, '2020-12-20','','','','',NULL),
 (9, 12, '2020-12-21','','','','',NULL);
+
+INSERT INTO daily ( caregiver_id, pat_id, care_date, morn_med, aft_med, night_med, breakfast, lunch, dinner)
+VALUES (3,4,'2020-10-01',1,1,0,1,1,1),
+(3,5,'2020-10-01',1,0,1,1,0,1),
+(10,7,'2020-10-01',0,0,1,1,1,1),
+(10,8,'2020-10-01',1,1,1,1,1,1),
+(13,10,'2020-10-01',1,0,1,1,1,0),
+(13,11,'2020-10-01',1,1,1,1,1,1),
+(14,12,'2020-10-01',0,0,1,1,1,1),
+(14,13,'2020-10-01',1,1,1,1,1,1),
+(3,5,'2020-10-02',1,0,1,1,0,1),
+(10,7,'2020-10-02',0,0,1,1,1,1),
+(10,8,'2020-10-02',1,1,1,1,1,1),
+(13,10,'2020-10-02',1,0,1,1,1,0),
+(13,11,'2020-10-02',1,1,1,1,1,1),
+(14,12,'2020-10-02',0,0,1,1,1,1),
+(14,13,'2020-10-02',1,1,1,1,1,1);

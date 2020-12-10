@@ -19,6 +19,7 @@
     <li><a class="buttonLink" href="../db/patients.php" class="homeButton">Patient Search</a></li>
     <li><button class="homeButton" id="doc_apt" type="button" name="doctor_appt">Create Doc Appointment</button></li>
     <li><a class="buttonLink" href="../db/billing.php" class="homeButton">Billing</a></li>
+    <li><a class="buttonLink" href="../db/patient_report.php" class="homeButton">Admin Report</a></li>
 
     <script defer src="../js/homePage.js" type="text/javascript"></script>
   </ul>
